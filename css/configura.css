@@ -1,0 +1,25 @@
+#botoesNav{
+    margin-left: 7%;
+}
+#btnSair{
+    position: absolute;
+    right: 3%;
+}
+#nav-secundary{
+    background-color: black;
+    height: 33px;
+}
+#content{
+    margin-top: 75px;
+}
+.exped{
+    border-style: solid;
+    border-width: thin;
+    border-radius: 7px;
+}
+#mainview{
+    width: 96vw;
+    margin-left: 2%;
+    margin-right: 10%;
+    align-items: center;
+}

@@ -1,0 +1,124 @@
+{
+    "montadoras" : [
+        {
+            "nome" : "Chery",
+            "modelos" : [
+                "Arrizzo5",
+                "Arrizzo6",
+                "Celer",
+                "QQ",
+                "Tiggo2",
+                "Tiggo5x",
+                "Tiggo6",
+                "Tiggo7",
+                "Tiggo8"
+            ] 
+        },
+        {
+            "nome" : "Chevrolet",
+            "modelos" : [
+                "Celta",
+                "Classic",
+                "Corsa",
+                "Prisma",
+                "Cruze",
+                "Montana",
+                "Onix Hatch",
+                "Onix Sedan",
+                "S10",
+                "Spin",
+                "Trailblazer"
+            ] 
+        },
+        {
+            "nome" : "FIAT",
+            "modelos" : [
+                "Argo",
+                "Chronos Hatch",
+                "Chronos Sedan",
+                "Doblò",
+                "Fiorino",
+                "Grand Siena",
+                "Mobi",
+                "Strada",
+                "Uno",
+                "Palio Weekend"
+            ] 
+        },
+        {
+            "nome" : "Hyundai",
+            "modelos" : [
+                "HB20",
+                "HB20 S",
+                "Creta",
+                "ix35",
+                "Azera",
+                "SantaFe"
+            ] 
+        },
+        {
+            "nome" : "Nissan",
+            "modelos" : [
+                "March",
+                "Versa",
+                "Sentra",
+                "Leaf",
+                "Kicks",
+                "Frontier"
+            ] 
+        },
+        {
+            "nome" : "Renault",
+            "modelos" : [
+                "Kwid",
+                "Captur",
+                "Duster",
+                "Duster Oroch",
+                "Sandero",
+                "Logan",
+                "Zoe"
+            ] 
+        },
+        {
+            "nome" : "Toyota",
+            "modelos" : [
+                "Etios",
+                "Yaris",
+                "Corolla",
+                "Prius",
+                "RAV4",
+                "Hilux",
+                "Hilux SW4"
+            ] 
+        },
+        {
+            "nome" : "Volkswagen",
+            "modelos" : [
+                "Up!",
+                "Gol",
+                "Voyage",
+                "Fox",
+                "Polo",
+                "Golf",
+                "Virtus",
+                "Nivus",
+                "T-Cross",
+                "Jetta",
+                "Saveiro",
+                "Amarok"
+            ] 
+        },
+        {
+            "nome" : "Renault",
+            "modelos" : [
+                "Kwid",
+                "Captur",
+                "Duster",
+                "Duster Oroch",
+                "Sandero",
+                "Logan",
+                "Zoe"
+            ] 
+        }
+    ]
+}

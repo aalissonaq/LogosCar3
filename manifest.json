@@ -1,0 +1,17 @@
+{
+  "name": "LogosCar 3.0",
+  "short_name": "LogosCar 3.0",
+  "theme_color": "#ff0000",
+  "background_color": "#d4d2cd",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/logoscar3",
+  "start_url": "/logoscar3/index.php",
+  "icons": [
+    {
+      "src": "/logoscar3/img/logo.png",
+      "sizes": "800x800",
+      "type": "image/png"
+    }
+  ]
+}

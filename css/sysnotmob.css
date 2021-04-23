@@ -1,0 +1,11 @@
+#mainview{
+    width: 98vw;
+    margin-left: 2%;
+    margin-right: 2%;
+    align-items: center;
+}
+#cardCasa, #cardMissao, #cardManut{
+    width: 32%;
+    height: 75vh;
+    overflow-y:auto;
+}

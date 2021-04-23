@@ -1,0 +1,65 @@
+body{
+    background-color: #d4d2cd !important;
+}
+nav{
+    background-color: red;
+    height: 80px;
+}
+hr{
+    width: 100%;
+    color: black;
+}
+.content{
+    width: 100%;
+    margin: 10px;
+}
+.footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    color: white;
+    background-color: red;
+}
+#back , #next, #back01 , #next01, #back02 , #next02, #back03 , #save {
+    color: white;
+    border-radius: 75px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}
+.cardopt{
+    width: 10rem;
+    height: 12rem;
+    margin: 7px;
+    background-color: red !important; 
+    color: white !important;
+}
+.signature-pad {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:250px;
+    height:367px;
+}
+.card{
+    margin: 7px;
+}
+.buttons-action{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#labelTipoLigacao1, #labelTipoLigacao2, #labelTipoLigacao3{
+    margin-right: 7px;
+}
+a#addEquip{
+    color: blue;
+}
+a#addEquip:hover{
+    color: white;
+}
+#canvas {
+    background:#fff;
+    border: black;
+  }
+#pesquisarCEP{
+    vertical-align: -webkit-baseline-middle;
+}
