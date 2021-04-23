@@ -1,0 +1,7 @@
+#ignorar SQL
+*.sql
+#ignorar imagens
+img/
+#ignorar arquivos zipados
+*.zip
+*.rar
