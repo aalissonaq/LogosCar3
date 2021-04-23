@@ -98,7 +98,7 @@ $('#pesquisaMotoristaMulta').on("click", function(){
             }
         },
         error: function(resposta){
-            console.log(resposta.data.result);
+            console.log(resposta.data);
             alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
         }
     });
