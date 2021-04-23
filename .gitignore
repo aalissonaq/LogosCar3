@@ -5,3 +5,4 @@ img/
 #ignorar arquivos zipados
 *.zip
 *.rar
+connect.php
