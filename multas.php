@@ -8,9 +8,9 @@
     if($level=='OPR')
         header('Location: sys.php');
     if($level=='MTR')
-        $query = $bd->prepare('SELECT * FROM tb_multas');
+        $query = $bd->prepare('SELECT u.nome_user, u.id_user, v.id_veiculo, v.montadora, v.modelo, v.placa, v.alias, v.renavam, m.* FROM tb_multas as m, tb_users as u, tb_veiculo as v WHERE m.id_motorista = u.id_user AND m.id_veiculo = v.id_veiculo');
     if($level=='ADM'){
-        $query = $bd->prepare('SELECT * FROM tb_multas WHERE id_uf = :myuf');
+        $query = $bd->prepare('SELECT u.nome_user, u.id_user, v.id_veiculo, v.montadora, v.modelo, v.placa, v.alias, v.renavam, m.* FROM tb_multas as m, tb_users as u, tb_veiculo as v WHERE m.id_motorista = u.id_user AND m.id_veiculo = v.id_veiculo AND m.uf_multa = :myuf');
         $query->bindParam(':myuf',$myuf);
     }
     $query->execute();
@@ -56,25 +56,31 @@
                     <table id="listaMultas" class="table table-striped table-bordered <?php if($isMobile){ echo 'table-responsive';}?>" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="display:none;">ID</th>
-                                <th>Veiulo</th> <!-- Montadora + Modelo -->
+                                <th>ID</th>
+                                <th>Veiculo</th> <!-- Montadora + Modelo -->
                                 <th>Placa</th>
                                 <th>Data</th>
+                                <th>Cidade / UF</th>
+                                <th>Local Ocorrência</th>
                                 <th>Valor (R$)</th>
-                                <th>Pontos</th>
+                                <th>Status</th>
                                 <th>Opções</th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php foreach($multas as $multa){?>
                             <tr>
-                            <td> teste </td>
-                            <td> teste </td>
-                            <td> teste </td>
-                            <td> teste </td>
-                            <td> teste </td>
-                            <td> teste </td>
-                            <td> teste </td>
+                            <td> <?php echo $multa->id_multa; ?> </td>
+                            <td> <?php echo $multa->montadora.' '.$multa->modelo.'('.$multa->alias.')'; ?> </td>
+                            <td> <?php echo $multa->placa; ?> </td>
+                            <td> <?php echo $multa->data_multa; ?> </td>
+                            <td> <?php echo $multa->cidade_multa.' / '.$multa->uf_multa; ?> </td>
+                            <td> <?php echo $multa->local_multa ?> </td>
+                            <td> <?php echo $multa->valor_multa ?> </td>
+                            <td> <?php echo $multa->pago ?> </td>
+                            <td> Opções </td>
                             </tr>
+                        <?php }?>
                         </tbody>
                     </table>
                 </div>

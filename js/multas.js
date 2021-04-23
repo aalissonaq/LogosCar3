@@ -7,7 +7,7 @@ $(document).ready(function(){
         dom: 'Bfrtip',
         language: {
             "decimal":        "",
-            "emptyTable":     "Não há dados disponíveis para visualização!",
+            "emptyTable":     "Não há multas cadastradas!",
             "info":           "Mostrando _START_ a _END_ de um total de _TOTAL_ resultados",
             "infoEmpty":      "Mostrando 0 a 0 de 0 resultados",
             "infoFiltered":   "(filtrado de _MAX_ resultados totais)",
