@@ -76,3 +76,30 @@ $(document).ready(function(){
         ]
     });
 });
+$('#dados-motorista').hide();
+$('#pesquisaMotoristaMulta').on("click", function(){
+    var dataOcorrencia = $('#inputDataHoraOcorrência').val();
+    var veiculo = $('#inputVeiculo').val();
+    $.ajax({
+        url: 'checkviagem.php?act=check&data='+dataOcorrencia+'&carro='+veiculo,
+        dataType: 'json',
+        success: function(resposta){
+            if(resposta.data.result){
+                $('#dados-motorista').fadeIn(250);
+                document.getElementById('inputNomeCondutor').value = resposta.data.nome;
+                if(resposta.data.alter_rota == null){
+                    document.getElementById('inputRotaEfetuada').value = resposta.data.rota;
+                } else{
+                    document.getElementById('inputRotaEfetuada').value = resposta.data.alter_rota;
+                }
+                document.getElementById('inputIDViagem').value = resposta.data.id_viagem;
+            } else{
+                alert('Não há nenhuma corrida cadastrada no período indicado!');
+            }
+        },
+        error: function(resposta){
+            console.log(resposta.data.result);
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+        }
+    });
+});
