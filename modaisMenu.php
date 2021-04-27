@@ -1,6 +1,6 @@
 <!-- Modais -->
     <!-- Modal Configurações -->
-    <div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalConfig" tabindex="-1" role="dialog" aria-labelledby="modalConfig" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -23,7 +23,7 @@
     </div>
     <!-- Fim Modal Configurações -->
     <!-- Modal Histórico-->
-    <div class="modal fade" id="modalHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalHistory" tabindex="-1" role="dialog" aria-labelledby="modalHistory" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

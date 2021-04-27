@@ -105,58 +105,59 @@
     
     <!-- END OF CODE -->
     <!-- MODAIS -->
-    <div class="modal fade" id="modalAddMulta" tabindex="-1" role="dialog" aria-labelledby="modalAddVeiculo" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Nova Ocorrência: Multa </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="modal fade" id="modalAddMulta" tabindex="-1" role="dialog" aria-labelledby="modalAddMulta" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Nova Ocorrência: Multa </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="control-form justify-content-center text-center">
+                        <h6>Identificar Motorista</h6><hr>
+                    </div></hr>
+                    <div class="control-form justify-content-center text-center">
+                        <label class="col-lg-5" for="inputDataHoraOcorrência">Qual a data da multa?</label>
+                        <input class="col-lg-5" type="datetime-local" name="inputDataHoraOcorrência" id="inputDataHoraOcorrência" value="<?php echo date('Y-m-d').'T'.date('H:i:s');?>" max="<?php echo date('Y-m-d').'T'.date('H:i:s');?>">
                     </div>
-                    <div class="modal-body">
-                        <div class="control-form justify-content-center text-center">
-                            <h6>Identificar Motorista</h6><hr>
-                        </div></hr>
-                        <div class="control-form justify-content-center text-center">
-                            <label class="col-lg-5" for="inputDataHoraOcorrência">Qual a data da multa?</label>
-                            <input class="col-lg-5" type="datetime-local" name="inputDataHoraOcorrência" id="inputDataHoraOcorrência" value="<?php echo date('Y-m-d').'T'.date('H:i:s');?>" max="<?php echo date('Y-m-d').'T'.date('H:i:s');?>">
-                        </div>
-                        <div class="control-form justify-content-center text-center">
-                            <label class="col-lg-5" for="inputVeiculo">Qual o veículo que recebeu a multa?</label>
-                            <select class="col-lg-5" name="inputVeiculo" id="inputVeiculo">
-                            <?php
-                                foreach($veiculos as $veiculo){
-                                    echo '<option value="'.$veiculo->id_veiculo.'">'.$veiculo->placa.' ('.$veiculo->montadora.' '.$veiculo->modelo.')</option>';
-                                }
-                            ?> 
-                            </select></hr>
-                        </div>
-                        <div class="control-form justify-content-center text-center">
-                            <button style="margin-top: 3%; margin-bottom: 3%;" id="pesquisaMotoristaMulta" class="btn btn-outline-info col-lg-10"><i class="fas fa-search-location"></i> Pesquisar</button>
-                        </div>
-                        <div id="dados-motorista">
-                            <hr>
-                            <div class="control-form text-center justify-content-center">
-                                <label class="col-lg-5" for="inputNomeCondutor">Nome do condutor:</label>
-                                <input class="col-lg-5" type="text" name="inputNomeCondutor" id="inputNomeCondutor" readonly>
-                            </div>
-                            <div class="control-form text-center justify-content-center">
-                                <label class="col-lg-5" for="inputRotaEfetuada">Rota Efetuada:</label>
-                                <input class="col-lg-5" type="text" name="inputRotaEfetuada" id="inputRotaEfetuada" readonly>
-                            </div>
-                            <div class="control-form text-center justify-content-center">
-                                <label class="col-lg-5" for="inputIDViagem">ID da viagem:</label>
-                                <input class="col-lg-5" type="text" name="inputIDViagem" id="inputIDViagem" readonly>
-                            </div>
-                        </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary">Limpar</button>
-                        <button type="submit" id="salvarNovoColab" class="btn btn-primary">Salvar</button>
+                    <div class="control-form justify-content-center text-center">
+                        <label class="col-lg-5" for="inputVeiculo">Qual o veículo que recebeu a multa?</label>
+                        <select class="col-lg-5" name="inputVeiculo" id="inputVeiculo">
+                        <?php
+                            foreach($veiculos as $veiculo){
+                                echo '<option value="'.$veiculo->id_veiculo.'">'.$veiculo->placa.' ('.$veiculo->montadora.' '.$veiculo->modelo.')</option>';
+                            }
+                        ?> 
+                        </select></hr>
                     </div>
+                    <div class="control-form justify-content-center text-center">
+                        <button style="margin-top: 3%; margin-bottom: 3%;" id="pesquisaMotoristaMulta" class="btn btn-outline-info col-lg-10"><i class="fas fa-search-location"></i> Pesquisar</button>
+                    </div>
+                    <div id="dados-motorista">
+                        <hr>
+                        <div class="control-form text-center justify-content-center">
+                            <label class="col-lg-5" for="inputNomeCondutor">Nome do condutor:</label>
+                            <input class="col-lg-5" type="text" name="inputNomeCondutor" id="inputNomeCondutor" readonly>
+                        </div>
+                        <div class="control-form text-center justify-content-center">
+                            <label class="col-lg-5" for="inputRotaEfetuada">Rota Efetuada:</label>
+                            <input class="col-lg-5" type="text" name="inputRotaEfetuada" id="inputRotaEfetuada" readonly>
+                        </div>
+                        <div class="control-form text-center justify-content-center">
+                            <label class="col-lg-5" for="inputIDViagem">ID da viagem:</label>
+                            <input class="col-lg-5" type="text" name="inputIDViagem" id="inputIDViagem" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                    <button type="submit" id="salvarNovoColab" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
         </div>
+    </div>
     <?php
         require_once('modaisMenu.php');
     ?>
@@ -165,10 +166,9 @@
     <script src="<?php echo BASE;?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo BASE;?>/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Page level plugin JavaScript-->
-    <script src="<?php echo BASE;?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE;?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+    <!-- DataTables -->
+    <script type="text/javascript" src="vendor/datatables.min.js"></script>
+    
     <!-- Custom scripts for all pages-->
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/all.min.js"></script>
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/fontawesome.min.js"></script>

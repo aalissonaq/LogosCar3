@@ -10,7 +10,7 @@
   "icons": [
     {
       "src": "/logoscar3/img/logo.png",
-      "sizes": "800x800",
+      "sizes": "800x400",
       "type": "image/png"
     }
   ]
