@@ -72,3 +72,7 @@ $(document).ready(function(){
         ]
     });
 });
+$('#loginLC3').on("submit", function(){
+    document.getElementById('btnLogin').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';
+    $(this).submit();
+});

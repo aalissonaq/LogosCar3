@@ -16,6 +16,11 @@ $(document).ready(function(){
         $('#avisoGet').hide();
     }, 5000);
     
+    var regras = document.querySelectorAll('ul li');
+    regras.forEach(function(item){
+        item.style.color = '#d70d0d';
+    });
+
     $('#listaUsuarios').DataTable( {
         dom: 'Bfrtip',
         language: {
@@ -197,5 +202,32 @@ $('#novaSenha').on("blur", function(){
         document.getElementById('novaSenha').value = '';
         alert('A sua senha precisa ter pelo menos:\n 1(uma) letra maiúscula\n 1(uma) letra minúscula\n 1(um) numeral; e \n 1(um) caractere especial.\n Por favor tente novamente.');
         $('#cleanPasswd').focus();
+    }
+});
+$('#novaSenha').on("keyup", function(){
+    const upperc = new RegExp('[A-Z]');
+    const lowerc = new RegExp('[a-z]');
+    const number = RegExp('[0-9]');
+    const spchar = RegExp(/([^a-zA-Z0-9])+/g);
+    var texto = document.getElementById('novaSenha').value; 
+    if(upperc.test(texto)){
+        document.getElementById('rule1').style.color = '#078509';
+    } else{
+        document.getElementById('rule1').style.color = '#d70d0d';
+    }
+    if(lowerc.test(texto)){
+        document.getElementById('rule2').style.color = '#078509';
+    } else{
+        document.getElementById('rule2').style.color = '#d70d0d';
+    }
+    if(number.test(texto)){
+        document.getElementById('rule3').style.color = '#078509';
+    } else{
+        document.getElementById('rule3').style.color = '#d70d0d';
+    }
+    if(spchar.test(texto)){
+        document.getElementById('rule4').style.color = '#078509';
+    } else{
+        document.getElementById('rule4').style.color = '#d70d0d';
     }
 });

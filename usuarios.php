@@ -19,6 +19,11 @@
 ?>
 <head>
     <link rel="stylesheet" href="<?php echo BASE;?>/css/sys.css">
+    <style>
+        #rules{
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -253,6 +258,15 @@
                             </div>
                         </div>
                 </div>
+                    <div class="modal-body" id="rules"><hr>
+                        <label for="ul li">Requisitos:</label><hr>
+                        <ul>
+                            <li id="rule1">Letra maiúscula</li>
+                            <li id="rule2">Letra minúscula</li>
+                            <li id="rule3">Numeral</li>
+                            <li id="rule4">Caractere especial (!,@,#,$, etc...)</li>
+                        </ul>
+                    </div>
                 <div class="modal-footer">
                     <button type="reset" id="cleanPasswd" class="btn btn-secondary">Limpar</button>
                     <button type="submit" id="submitPasswd" class="btn btn-primary">Alterar Senha</button>

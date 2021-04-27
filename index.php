@@ -118,7 +118,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Login</h5>
-                        <form action="login.php" method="POST">
+                        <form id="loginLC3" action="login.php" method="POST">
                             <p class="card-text">
                                 <div class="form-group">
                                     <input type="text" class="form-control <?php if($isMobile){ echo 'form-control-lg';}?>" id="inputLogin" name="inputLogin" placeholder="Seu usuário" required>
