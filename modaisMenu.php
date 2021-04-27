@@ -10,13 +10,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <a href="senhas.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-key"></i> Alterar Senha</a>
                     <?php if($level!='OPR'){?>
                     <a href="veiculos.php" class="btn btn-primary btn-lg btn-block text-white"><i class="fas fa-car-alt"></i> Veiculos</a>
                     <a href="usuarios.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-id-card"></i> Usuários</a>
-                    <a href="multas.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-exclamation-triangle"></i> Multas</a>
+                    <a href="multas.php" class="btn btn-primary btn-lg btn-block text-white"><i class="fas fa-exclamation-triangle"></i> Multas</a>
                     <?php } if($level=='MTR'){?>
-                    <a href="log.php" class="btn btn-primary btn-lg btn-block text-white"><i class="fas fa-eye"></i> Log</a>
+                    <a href="log.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-eye"></i> Log</a>
                     <?php } ?>
                 </div>
             </div>
