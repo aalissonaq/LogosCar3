@@ -79,9 +79,12 @@ $(document).ready(function(){
 $('#dados-motorista').hide();
 $('#pesquisaMotoristaMulta').on("click", function(){
     var dataOcorrencia = $('#inputDataHoraOcorrência').val();
+    console.log(dataOcorrencia);
     var veiculo = $('#inputVeiculo').val();
     $.ajax({
-        url: 'checkviagem.php?act=check&data='+dataOcorrencia+'&carro='+veiculo,
+        method: "POST",
+        url: 'checkviagem.php',
+        data: {act: "check", data: dataOcorrencia, carro:veiculo},
         dataType: 'json',
         success: function(resposta){
             if(resposta.data.result){

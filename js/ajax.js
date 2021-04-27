@@ -3,7 +3,9 @@ $(document).ready(function(){
 });
 $('#inputMatricula').on('blur', function(){
     $.ajax({
-        url: 'consultaMatr.php?act=matr&num='+$("#inputMatricula").val(),
+        method: "POST",
+        url: 'consultaMatr.php',
+        data: {act: "matr", num: $("#inputMatricula").val()},
         dataType: 'json',
         success: function(resposta){
             if(resposta.data.matr == $('#inputMatricula').val()){
@@ -27,7 +29,9 @@ $('#inputNumCNH').on('blur', function(){
         $('#motoraSim').focus();
     } else{
         $.ajax({
-            url: 'consultaMatr.php?act=cnh&num='+$("#inputNumCNH").val(),
+            method: "POST",
+            url: 'consultaMatr.php',
+            data: {act: "cnh", num: $("#inputNumCNH").val()},
             dataType: 'json',
             success: function(resposta){
                 if(resposta.data.cnh == $('#inputNumCNH').val()){

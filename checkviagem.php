@@ -1,8 +1,29 @@
 <?php
-    if($_GET['act']=='check'){
+    require_once('isMobile.php');
+    if($_POST['act']=='check'){
         try{
-            $data = str_replace("T"," ",$_GET['data']);
-            $veiculo = $_GET['carro'];
+            if($isMobile){
+                //recebe data cheia
+                $dataFull = str_replace("T"," ", $_POST['data']);
+                //separa data de horário
+                $separaDataEHora = explode(" ", $dataFull);
+                //captura em $horario somente o horario repassado
+                $horario = $separaDataEHora[1];
+                //divide o horário em hora, minuto e segundo (se existir segundo)
+                $dividoHorario = explode(":", $horario);
+                //se for menor que 3, indica que só tem hora e minuto no datetime repassado
+                if(count($dividoHorario)<3){
+                    //acrescenta-se os segundos
+                    $data = str_replace("T"," ",$_POST['data']).':00';
+                } else{
+                    //deixa como está
+                    $data = str_replace("T"," ",$_POST['data']);
+                }
+            } else{
+                //quando não é mobile, por padrão vem os segundos zerados.
+                $data = str_replace("T"," ",$_POST['data']);
+            }
+            $veiculo = $_POST['carro'];
             require_once('session.php');
             if($level=='MTR'){
                 $sql="SELECT l.*, u.matr_user, u.nome_user, v.id_veiculo, v.proprietario, v.montadora, v.placa, v.modelo, v.status FROM tb_viagem as l, tb_users as u, tb_veiculo as v WHERE u.matr_user = l.id_user AND v.id_veiculo = l.id_veiculo AND l.id_veiculo = ".$veiculo." AND ' ".$data." ' BETWEEN l.data_lancamento AND l.data_retorno";

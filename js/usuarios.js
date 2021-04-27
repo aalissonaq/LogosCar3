@@ -136,18 +136,20 @@ $('input[name="radioMotorista"]').change(function () {
         $('#dadosMotorista').fadeOut(250);
     }
 });
-function editUser(id){
-    window.location.href = 'editarUsuario.php?id='+id;
+function editUser(idUSer){
+    window.location.href = 'editarUsuario.php?id='+idUSer;
 }
-function editPassword(id){
+function editPassword(idUSer){
     $('#modalPassword').modal();
     $.ajax({
-        url: 'consultaMatr.php?act=id_psw&id='+id,
+        method: "POST",
+        url: 'consultaMatr.php',
+        data: {act: "id_psw", id: idUSer},
         dataType: 'json',
         success: function(resposta){
             if(resposta.data.nome != null && resposta.data.matr !=null){
                 $('#modalPasswordLabel').html('<i class="fas fa-key"></i>&nbsp Alterar: '+resposta.data.nome+' (mat.: '+resposta.data.matr+')');
-                document.getElementById('inputID').value = id;
+                document.getElementById('inputID').value = idUSer;
             }
             else{
                 alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');

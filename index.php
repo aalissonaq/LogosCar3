@@ -23,7 +23,7 @@
     <link rel="shortcut icon" href="img/icon.png" type="image/x-icon" />
 
     <!-- Manifest JSON-->
-    <!--<link rel="manifest" href="manifest.json">-->
+    <link rel="manifest" href="<?php echo BASE;?>/manifest.json">
     <!-- jQuery AJax-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="<?php echo BASE;?>/js/signature.js"></script>
@@ -56,6 +56,18 @@
         #logo-footer{
             width: 140px !important;
         }
+        #btnLogin{
+            width: 35%;
+            height: 90px;
+            font-size: 40px;
+        }
+        #inputLogin, #inputSenha{
+            height: 60px;
+            font-size: 30px;
+        }
+        #greetings{
+            font-size: 25px;
+        }
 
     </style>
     <?php } ?>
@@ -76,6 +88,14 @@
     <div id="sidebar">
         <nav id="nav" class="navbar navbar-collapse navbar-expand static-top" role="navigation" style="margin-bottom: 0">
         <?php
+            $hora = date('H');
+            if($hora>=0 && $hora <=11){
+                echo '<span id="greetings" class="text-white">Olá, Bom Dia!</span>';
+            } elseif ($hora>=12 && $hora <=17){
+                echo '<span id="greetings" class="text-white">Olá, Boa Tarde!</span>';
+            } else{
+                echo '<span id="greetings" class="text-white">Olá, Boa Noite!</span>';
+            }
             if($mes=='09'){
                 echo '<a class="navbar-brand" href="#"  data-toggle="tooltip" data-placement="right" title="Setembro Amarelo"><img src="img/campanha/'.$mes.'.png" height="40px" class="d-inline-block align-top" alt="'. NOMESYS .'"></a>';
             }
@@ -101,12 +121,12 @@
                         <form action="login.php" method="POST">
                             <p class="card-text">
                                 <div class="form-group">
-                                    <input type="text" class="form-control <?php if($isMobile){ echo 'form-control-lg';}?>" id="inputLogin" name="inputLogin" placeholder="Login" required>
+                                    <input type="text" class="form-control <?php if($isMobile){ echo 'form-control-lg';}?>" id="inputLogin" name="inputLogin" placeholder="Seu usuário" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control <?php if($isMobile){ echo 'form-control-lg';}?>" id="inputSenha" name="inputSenha" placeholder="Senha" required>
+                                    <input type="password" class="form-control <?php if($isMobile){ echo 'form-control-lg';}?>" id="inputSenha" name="inputSenha" placeholder="Sua senha" required>
                                 </div>
-                                <button type="submit" class="btn btn-outline-primary">Entrar</button>
+                                <button id="btnLogin" type="submit" class="btn btn-outline-primary">Entrar</button>
                             </p>
                         </form>
                     </div>

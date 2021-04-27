@@ -183,7 +183,9 @@ $("#inputCor").change(function(){
 });
 $('#inputPlaca').on('blur', function(){
     $.ajax({
-        url: 'consultaMatr.php?act=placa&placa='+$("#inputPlaca").val(),
+        method: "POST",
+        url: 'consultaMatr.php',
+        data: {act: "placa", placa: $("#inputPlaca").val()},
         dataType: 'json',
         success: function(resposta){
             console.log(resposta.data);
@@ -195,15 +197,67 @@ $('#inputPlaca').on('blur', function(){
         error: function(resposta){
             console.log(resposta.data);
             alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+            $('#inputMontadora').focus();
         }
     });
 });
 $('#inputRENAVAM').on('blur', function(){
-
+    $.ajax({
+        method: "POST",
+        url: 'consultaMatr.php',
+        data: {act: "renavam", renavam: $("#inputRENAVAM").val()},
+        dataType: 'json',
+        success: function(resposta){
+            console.log(resposta.data);
+            if(resposta.data == true){
+                alert('Esse RENAVAM já foi cadastrado. Por favor verifique e, persistindo, entre em contato com o NTI.');
+                document.getElementById('inputRENAVAM').value='';
+            }
+        },
+        error: function(resposta){
+            console.log(resposta.data);
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+            $('#inputMontadora').focus();
+        }
+    });
 });
 $('#inputChassi').on('blur', function(){
-
+    $.ajax({
+        method: "POST",
+        url: 'consultaMatr.php',
+        data: {act: "chassi", chassi: $("#inputChassi").val()},
+        dataType: 'json',
+        success: function(resposta){
+            console.log(resposta.data);
+            if(resposta.data == true){
+                alert('Esse chassi já foi cadastrado. Por favor verifique e, persistindo, entre em contato com o NTI.');
+                document.getElementById('inputChassi').value='';
+            }
+        },
+        error: function(resposta){
+            console.log(resposta.data);
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+            $('#inputMontadora').focus();
+        }
+    });
 });
 $('#inputAlias').on('blur', function(){
-
+    $.ajax({
+        method: "POST",
+        url: 'consultaMatr.php',
+        data: {act: "alias", alias: $("#inputAlias").val()},
+        dataType: 'json',
+        success: function(resposta){
+            console.log(resposta.data);
+            if(resposta.data == true){
+                alert('Esse Alias já foi cadastrado. Por favor verifique e, persistindo, entre em contato com o NTI.');
+                document.getElementById('inputAlias').value='';
+            }
+        },
+        error: function(resposta){
+            console.log(resposta.data);
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+            $('#inputMontadora').focus();
+        }
+    });
 });
