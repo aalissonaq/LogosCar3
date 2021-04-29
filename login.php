@@ -52,45 +52,50 @@
      }
    }
     if(isset($_POST['inputLogin']) && isset($_POST['inputSenha'])){
-        require_once('src/conn/connect.php');
-        $user = @$_POST['inputLogin'];
-        $psw = @md5($_POST['inputSenha']);
-        $stmt = $bd->prepare('SELECT * FROM tb_users');
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-        //$statusInternet = exec("ping www.google.com.br",$output,$resultadoPing);
-        if($resultadoPing == 1){
-            $meuip['ip'] = $_SERVER['REMOTE_ADDR'];
-        } else {
-            $meuip = json_decode(file_get_contents('https://api.ipify.org?format=json'),true);
-        }
-        foreach($result as $res){
-            if($user == $res->matr_user && $psw == $res->senha){
-                if($res->ativo == 1){
-                    $save = $bd->prepare('INSERT INTO tb_log (id_user,uf,cidade,ip,dispositivo,data_login,acao) VALUES (:user,:uf,:cidade,:ip,:dispositivo,NOW(),:acao)');
-                    $save->bindParam(':user',$res->id_user);
-                    $save->bindParam(':uf',$res->uf);
-                    $save->bindParam(':cidade',$res->cidade);
-                    $save->bindParam(':dispositivo',$modelo);
-                    $save->bindParam(':ip',$meuip['ip']);
-                    $acao = 'efetuou o login via '.$modelo;
-                    $save->bindParam(':acao',$acao);
-                    $save->execute();
-                    session_start();
-                    $_SESSION['user'] = $res->id_user;
-                    $_SESSION['uf'] = $res->uf;
-                    $_SESSION['cidade'] = $res->cidade;
-                    $_SESSION['nivel'] = $res->nivel;
-                    $_SESSION['isMobile'] = $mobile;
-                    require_once('session.php');
-                    header('Location: sys.php');
-                    exit();
-                } else{
-                    header('Location: index.php?erro=0');
-                }
-            } else{
-                header('Location: index.php?erro=1');
+        try{
+            require_once('src/conn/connect.php');
+            $user = @$_POST['inputLogin'];
+            $psw = @md5($_POST['inputSenha']);
+            $stmt = $bd->prepare('SELECT * FROM tb_users');
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+            //$statusInternet = exec("ping www.google.com.br",$output,$resultadoPing);
+            $localIP = strpos($_SERVER['REMOTE_ADDR'],"192.168.1");
+            if($localIP){
+                $meuip['ip'] = $_SERVER['REMOTE_ADDR'];
+            } else {
+                $meuip = json_decode(file_get_contents('https://api.ipify.org?format=json'),true);
             }
+            foreach($result as $res){
+                if($user == $res->matr_user && $psw == $res->senha){
+                    if($res->ativo == 1){
+                        $save = $bd->prepare('INSERT INTO tb_log (id_user,uf,cidade,ip,dispositivo,data_login,acao) VALUES (:user,:uf,:cidade,:ip,:dispositivo,NOW(),:acao)');
+                        $save->bindParam(':user',$res->id_user);
+                        $save->bindParam(':uf',$res->uf);
+                        $save->bindParam(':cidade',$res->cidade);
+                        $save->bindParam(':dispositivo',$modelo);
+                        $save->bindParam(':ip',$meuip['ip']);
+                        $acao = 'efetuou o login via '.$modelo;
+                        $save->bindParam(':acao',$acao);
+                        $save->execute();
+                        session_start();
+                        $_SESSION['user'] = $res->id_user;
+                        $_SESSION['uf'] = $res->uf;
+                        $_SESSION['cidade'] = $res->cidade;
+                        $_SESSION['nivel'] = $res->nivel;
+                        $_SESSION['isMobile'] = $mobile;
+                        require_once('session.php');
+                        header('Location: sys.php');
+                        exit();
+                    } else{
+                        header('Location: index.php?erro=0');
+                    }
+                } else{
+                    header('Location: index.php?erro=1');
+                }
+            }
+        }catch (PDOException $e) {
+            echo 'ERRO: ', $e->getMessage();
         }
     }
     ?>
