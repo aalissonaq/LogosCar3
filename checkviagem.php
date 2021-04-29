@@ -38,6 +38,8 @@
             if( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
                 $retorno = array(
                     "result"        =>          "ok",
+                    "user_id"       =>          $row['id_user'],
+                    "carro_id"       =>          $row['id_carro'],
                     "nome"          =>          $row['nome_user'],
                     "rota"          =>          $row['rota'],
                     "alter_rota"    =>          $row['alter_rota'],
