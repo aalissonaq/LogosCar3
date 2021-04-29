@@ -136,7 +136,7 @@
                                             echo '<td><span style="display:none">C</span><abbr title="Na oficina" class="initialism"><i class="fas fa-tools fa-2x" style="color: red"></i></abbr></td>';
                                             break;
                                     }
-                                    echo '<td> teste </td>';
+                                    echo '<td><a class="btn btn-info" href="editarVeiculo.php?aZhDelkuQw='.$veiculo->id_veiculo.'"><i class="fas fa-edit"></i></a></td>';
                                     echo '</tr>';                                 
                                 }
                             ?>

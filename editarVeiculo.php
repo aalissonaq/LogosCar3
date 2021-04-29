@@ -8,7 +8,7 @@
     require_once('header.php');
 
     if(isset($_GET)||($_GET!='')){
-        //$id=$_GET['id'];
+        $id=$_GET['aZhDelkuQw'];
         //$level = 'ADM';
         $id = 3;
         $query = $bd->prepare('SELECT * FROM tb_veiculo WHERE id_veiculo = :id');
@@ -26,6 +26,10 @@
     <?php
         require_once('nav.php');
     ?>
+    <div id="loading" style="display: block" class="loading" align="center">
+		<img src="<?php echo BASE;?>/img/preloader.gif"><br>
+	    Carregando...
+	</div>
     <div id="content" class="content container-fluid justify-content-center text-center" style="display: none">
         <div class="modal-header justify-content-center text-center">
             <h5 class="modal-title" id="exampleModalLabel">Editar Veículo</h5>
@@ -66,6 +70,15 @@
         </div>
         <div class="modal-body">
             <label for="sobre"><h6>Dados do veiculo:</h6></label><hr/>
+            <?php
+                $localIP = strpos($_SERVER['REMOTE_ADDR'],"192.168.1");
+                echo $_SERVER['REMOTE_ADDR'];
+                if($localIP){
+                    echo 'sim';
+                } else{
+                    echo 'não';
+                }
+            ?>
             <h6><abbr title="A cidade-base onde o veículo estará lotado, passará maior parte do tempo." class="initialism">Localidade</abbr></h6>
             <div class="form-group justify-content-center text-center">
                 <select class="col-lg-5" name="inputUF" id="inputUF">
