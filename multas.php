@@ -27,6 +27,15 @@
 ?>
 <head>
     <link rel="stylesheet" href="<?php echo BASE;?>/css/configura.css">
+    <style>
+        a#pesquisaMotoristaMulta{
+            color: #17a2b8;
+            
+        }
+        a#pesquisaMotoristaMulta:hover{
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -118,9 +127,14 @@
                     <div class="control-form justify-content-center text-center">
                         <h6>Identificar Motorista</h6><hr>
                     </div></hr>
+                    <form action="salvarmulta.php" method="post">
                     <div class="control-form justify-content-center text-center">
-                        <label class="col-lg-5" for="inputDataHoraOcorrência">Qual a data da multa?</label>
-                        <input class="col-lg-5" type="datetime-local" name="inputDataHoraOcorrência" id="inputDataHoraOcorrência" value="<?php echo date('Y-m-d').'T'.date('H:i:s');?>" max="<?php echo date('Y-m-d').'T'.date('H:i:s');?>">
+                        <label class="col-lg-5" for="inputDataOcorrência">Qual a data da multa?</label>
+                        <input class="col-lg-5" type="date" name="inputDataOcorrencia" id="inputDataOcorrencia" value="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d');?>">
+                    </div>
+                    <div class="control-form justify-content-center text-center">
+                        <label class="col-lg-5" for="inputHoraOcorrência">Qual a hora da multa?</label>
+                        <input class="col-lg-5" type="time" value="<?php echo date('H:i:s');?>" name="inputHoraOcorrencia" id="inputHoraOcorrencia" step="2">
                     </div>
                     <div class="control-form justify-content-center text-center">
                         <label class="col-lg-5" for="inputVeiculo">Qual o veículo que recebeu a multa?</label>
@@ -133,13 +147,15 @@
                         </select></hr>
                     </div>
                     <div class="control-form justify-content-center text-center">
-                        <button style="margin-top: 3%; margin-bottom: 3%;" id="pesquisaMotoristaMulta" class="btn btn-outline-info col-lg-10"><i class="fas fa-search-location"></i> Pesquisar</button>
+                        <a style="margin-top: 3%; margin-bottom: 3%;" id="pesquisaMotoristaMulta" class="btn btn-outline-info col-lg-10"><i class="fas fa-search-location"></i> Pesquisar</a>
                     </div>
                     <div id="dados-motorista">
                         <hr>
                         <div class="control-form text-center justify-content-center">
                             <label class="col-lg-5" for="inputNomeCondutor">Nome do condutor:</label>
                             <input class="col-lg-5" type="text" name="inputNomeCondutor" id="inputNomeCondutor" readonly>
+                            <input type="hidden" id="inputIDCondutor" name="inputIDCondutor">
+                            <input type="hidden" id="inputIDVeiculo" name="inputIDVeiculo">
                         </div>
                         <div class="control-form text-center justify-content-center">
                             <label class="col-lg-5" for="inputRotaEfetuada">Rota Efetuada:</label>
@@ -152,8 +168,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                    <button type="reset" onclick="hideData()" class="btn btn-secondary">Limpar</button>
                     <button type="submit" id="salvarNovoColab" class="btn btn-primary">Salvar</button>
+                    </form>
                 </div>
             </div>
         </div>

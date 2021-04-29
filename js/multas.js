@@ -77,27 +77,34 @@ $(document).ready(function(){
     });
 });
 $('#dados-motorista').hide();
+$('#salvarNovoColab').hide();
 $('#pesquisaMotoristaMulta').on("click", function(){
-    var dataOcorrencia = $('#inputDataHoraOcorrência').val();
-    console.log(dataOcorrencia);
+    var dataOcorrencia = $('#inputDataOcorrencia').val();
+    var horaOcorrencia = $('#inputHoraOcorrencia').val();
+    var periodo =  dataOcorrencia+' '+horaOcorrencia;
     var veiculo = $('#inputVeiculo').val();
     $.ajax({
         method: "POST",
         url: 'checkviagem.php',
-        data: {act: "check", data: dataOcorrencia, carro:veiculo},
+        data: {act: "check", data: periodo, carro:veiculo},
         dataType: 'json',
         success: function(resposta){
             if(resposta.data.result){
                 $('#dados-motorista').fadeIn(250);
                 document.getElementById('inputNomeCondutor').value = resposta.data.nome;
+                document.getElementById('inputIDCondutor').value = resposta.data.user_id;
+                document.getElementById('inputIDVeiculo').value = resposta.data.carro_id;
                 if(resposta.data.alter_rota == null){
                     document.getElementById('inputRotaEfetuada').value = resposta.data.rota;
                 } else{
                     document.getElementById('inputRotaEfetuada').value = resposta.data.alter_rota;
                 }
                 document.getElementById('inputIDViagem').value = resposta.data.id_viagem;
+                document.getElementById('salvarNovoColab').style.display = 'inline';
             } else{
                 alert('Não há nenhuma corrida cadastrada no período indicado!');
+                document.getElementById('salvarNovoColab').style.display = 'none';
+                document.getElementById('dados-motorista').style.display = 'none';
             }
         },
         error: function(resposta){
@@ -106,3 +113,7 @@ $('#pesquisaMotoristaMulta').on("click", function(){
         }
     });
 });
+function hideData(){
+    $('#dados-motorista').fadeOut(250);
+    $('#salvarNovoColab').fadeOut(250);
+}
