@@ -5,11 +5,11 @@
   "background_color": "#d4d2cd",
   "display": "fullscreen",
   "orientation": "portrait",
-  "scope": "/logoscar3",
-  "start_url": "/logoscar3/index.php",
+  "scope": "logoscar3",
+  "start_url": "logoscar3/index.php",
   "icons": [
     {
-      "src": "/logoscar3/img/logo.png",
+      "src": "logoscar3/img/logo.png",
       "sizes": "800x400",
       "type": "image/png"
     }
