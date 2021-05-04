@@ -187,7 +187,7 @@
             echo '</div></br>';
             if($level!='OPR'){
                 echo '<div class=" justify-content-center align-center text-center">';
-                echo '<a href="" class="btn btn-info col-lg-4"><i class="far fa-id-card"></i> Add Novo Motorista</a>';
+                echo '<a href="usuarios.php" class="btn btn-info col-lg-4"><i class="far fa-id-card"></i> Add Novo Motorista</a>';
                 echo '</div>';
             }
         }
@@ -307,7 +307,7 @@
         echo '</div>';
         echo '<div class="modal-footer">';
         echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>';
-        echo '<button type="submit" class="btn btn-primary">Iniciar Rota</button>';
+        echo '<button type="submit" class="btn btn-primary">Enviar à Manutenção</button>';
         echo '</form>';
         echo '</div>';
         echo '</div>';
@@ -343,6 +343,8 @@
         echo '<input class="col-lg-5" type="datetime-local" name="inputDataIda" id="inputDataIdaManut'.$voltamanut->id_veiculo.'" value="'.str_replace(" ","T",$retornoManut['data_manut']).'" readonly required>';
         echo '<label class="col-lg-5" for="inputDataManut">Data de Retorno</label>';
         echo '<input class="col-lg-5" type="datetime-local" name="inputDataRetorno" id="inputDataRetornoManut'.$voltamanut->id_veiculo.'" min="'.str_replace(" ","T",$retornoManut['data_manut']).'" onblur="testarMomentoManut('.$voltamanut->id_veiculo.')" required>';
+        echo '<label class="col-lg-5" for="inputValorManut">Valor Total</label>';
+        echo '<input class="col-lg-5" type="text" name="inputValorManut" id="inputValorManut" onkeydown="fMasc(this,mCash)" required>';
         echo '</br><label class="col-lg-5" for="inputDescricao">Descrição</label></br>';
         echo '<textarea class="col-lg-8" name="inputDescricao" id="inputDescricao" rows="5" required>'.$retornoManut['descricao_manut'].'</textarea>';
         echo '</div>';
