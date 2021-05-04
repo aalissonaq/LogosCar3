@@ -83,6 +83,7 @@ $('#pesquisaMotoristaMulta').on("click", function(){
     var horaOcorrencia = $('#inputHoraOcorrencia').val();
     var periodo =  dataOcorrencia+' '+horaOcorrencia;
     var veiculo = $('#inputVeiculo').val();
+    console.log('periodo: '+periodo);
     $.ajax({
         method: "POST",
         url: 'checkviagem.php',
@@ -90,6 +91,7 @@ $('#pesquisaMotoristaMulta').on("click", function(){
         dataType: 'json',
         success: function(resposta){
             if(resposta.data.result){
+                console.log(resposta.data);
                 $('#dados-motorista').fadeIn(250);
                 document.getElementById('inputNomeCondutor').value = resposta.data.nome;
                 document.getElementById('inputIDCondutor').value = resposta.data.user_id;
