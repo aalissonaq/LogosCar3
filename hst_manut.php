@@ -116,8 +116,8 @@
                     </table>
                 </div>
             </div>
-        <!-- fim da tabulação de histórico -->
-        <!-- tabulação de dados gerais -->
+            <!-- fim da tabulação de histórico -->
+            <!-- tabulação de dados gerais -->
             <div class="card tab-pane fade" id="dados" role="tabpanel" aria-labelledby="dados-tab" id="general-data">
                 <div class="card-header">
                     <h4>Dados Gerais</h4>
@@ -125,7 +125,7 @@
                 <div class="card-body justify-content-center row">
                     <div class="card" style="width: 12rem;">
                         <div class="card-header">
-                            <h6>Manutenções Efetuadas</h6>
+                            <h6>Rotas Efetuadas</h6>
                         </div>
                         <div class="card-body">
                             <?php echo count($manutencoes);?>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="card" style="width: 12rem;">
                         <div class="card-header">
-                            <h6>Manutenções Programadas</h6>
+                            <h6>Total KM Rodado</h6>
                         </div>
                         <div class="card-body">
                             <?php echo $manut_prog;?>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="card" style="width: 12rem;">
                         <div class="card-header">
-                            <h6>Manutenções Não Programadas</h6>
+                            <h6>Média KM Rodado</h6>
                         </div>
                         <div class="card-body">
                             <?php echo $manut_nao_prog;?>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="card" style="width: 12rem;">
                         <div class="card-header">
-                            <h6>Valor Total Investido (R$)</h6>
+                            <h6>Média Tempo</h6>
                         </div>
                         <div class="card-body">
                             <?php echo 'R$ '.$valor_total;?>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="card" style="width: 12rem;">
                         <div class="card-header">
-                            <h6>Média R$/Manutenção</h6>
+                            <h6>Custo/Manutenção</h6>
                         </div>
                         <div class="card-body">
                             <?php
