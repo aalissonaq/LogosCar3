@@ -31,61 +31,174 @@
 	    Carregando...
 	</div>
     <div id="content" class="content container-fluid justify-content-center text-center" style="display: none">
-        <div class="card">
-            <div class="card-header">
-                <h4>Histórico de Manutenções dos Veículos</h4>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="true">Histórico</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="dados-tab" data-toggle="tab" href="#dados" role="tab" aria-controls="dados" aria-selected="false">Dados Gerais</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="tabs">
+            <!-- tabulação de histórico -->
+            <div class="card tab-pane fade show active" id="history" role="tabpanel" aria-labelledby="history-tab">
+                <div class="card-header">
+                    <h4>Histórico de Manutenções dos Veículos</h4>
+                </div>
+                <div class="card-body">
+                    <table id="listaHstMov" class="table table-striped table-bordered <?php if($isMobile){ echo 'table-responsive';}?>" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="display:none;">ID</th>
+                                <th>Veículo</th>
+                                <th>Localidade</th>
+                                <th>Oficina</th>
+                                <th>Programada?</th>
+                                <th>KM ida / KM volta</th>
+                                <th>Valor (R$)</th>
+                                <th>Data ida - Data Volta</th>
+                                <th>Status Manutenção</th>
+                                <th class="text-truncate">Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($manutencoes as $manutencao){
+                                    echo '<tr>';
+                                    echo '<td style="display:none;">'.$manutencao->id_manut.'</td>';
+                                    echo '<td>'.$manutencao->montadora.' '.$manutencao->modelo.' ('.$manutencao->alias.') </td>';
+                                    echo '<td>'.$manutencao->cidade.'/'.$manutencao->uf.'</td>';
+                                    echo '<td>'.$manutencao->local_manut.'</td>';
+                                    if($manutencao->tipo_manut){
+                                        echo '<td><p style="display:none">Programada</p><abbr title="Sim" class="initialism"><i class="fas fa-check-circle fa-2x" style="color: green"></i></abbr></td>';
+                                    } else{
+                                        echo '<td><p style="display:none">Nao Programada</p><abbr title="Não" class="initialism"><i class="fas fa-times-circle fa-2x" style="color: red"></i></abbr></td>';
+                                    }
+                                    if(!$manutencao->status_manut){
+                                        echo '<td>'.$manutencao->km_ida.' km / '.$manutencao->km_retorno.' km</td>';
+                                    } else{
+                                        echo '<td>'.$manutencao->km_ida.' km / --- </td>';
+                                    }
+                                    if(!$manutencao->status_manut){
+                                        echo '<td>'.date("d/m/Y H:i", strtotime($manutencao->data_manut)).' - '.date("d/m/Y H:i", strtotime($manutencao->data_retorno)).'</td>';
+                                    } else{
+                                        echo '<td>'.date("d/m/Y H:i", strtotime($manutencao->data_manut)).' / --- </td>';
+                                    }
+                                    echo '<td>'.$manutencao->valor_manut.'</td>';
+                                    if($manutencao->status_manut){
+                                        echo '<td><p style="display:none">Em manutenção</p><abbr title="Andamento" class="initialism"><i class="fas fa-tools fa-2x" style="color: red"></i></abbr></td>';
+                                    } else{
+                                        echo '<td><p style="display:none">Manutenção Finalizada</p><abbr title="Finalizada" class="initialism"><i class="fas fa-check-circle fa-2x" style="color: green"></i></abbr></td>';
+                                    }
+                                    echo '<td>'.$manutencao->descricao_manut.'</td>';
+                                    echo '</tr>';
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="card-body">
-                <table id="listaHstMov" class="table table-striped table-bordered <?php if($isMobile){ echo 'table-responsive';}?>" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="display:none;">ID</th>
-                            <th>Veículo</th>
-                            <th>Localidade</th>
-                            <th>Oficina</th>
-                            <th>Programada?</th>
-                            <th>KM ida / KM volta</th>
-                            <th>Data ida - Data Volta</th>
-                            <th>Status Manutenção</th>
-                            <th class="text-truncate">Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            foreach($manutencoes as $manutencao){
-                                echo '<tr>';
-                                echo '<td style="display:none;">'.$manutencao->id_manut.'</td>';
-                                echo '<td>'.$manutencao->montadora.' '.$manutencao->modelo.' ('.$manutencao->alias.') </td>';
-                                echo '<td>'.$manutencao->cidade.'/'.$manutencao->uf.'</td>';
-                                echo '<td>'.$manutencao->local_manut.'</td>';
-                                if($manutencao->tipo_manut){
-                                    echo '<td><p style="display:none">Programada</p><abbr title="Sim" class="initialism"><i class="fas fa-check-circle fa-2x" style="color: green"></i></abbr></td>';
-                                } else{
-                                    echo '<td><p style="display:none">Nao Programada</p><abbr title="Não" class="initialism"><i class="fas fa-times-circle fa-2x" style="color: red"></i></abbr></td>';
+        <!-- fim da tabulação de histórico -->
+        <!-- tabulação de dados gerais -->
+            <div class="card tab-pane fade" id="dados" role="tabpanel" aria-labelledby="dados-tab" id="general-data">
+                <div class="card-header">
+                    <h4>Dados Gerais</h4>
+                </div>
+                <div class="card-body justify-content-center row">
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header">
+                            <h6>Manutenções Efetuadas</h6>
+                        </div>
+                        <div class="card-body">
+                            1
+                        </div>
+                    </div>
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header">
+                            <h6>Manutenções Programadas</h6>
+                        </div>
+                        <div class="card-body">
+                            0
+                        </div>
+                    </div>
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header">
+                            <h6>Manutenções Não Programadas</h6>
+                        </div>
+                        <div class="card-body">
+                            1
+                        </div>
+                    </div>
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header">
+                            <h6>Valor Total Investido (R$)</h6>
+                        </div>
+                        <div class="card-body">
+                            1
+                        </div>
+                    </div>
+                    <div class="card" style="width: 12rem;">
+                        <div class="card-header">
+                            <h6>Média R$/Manutenção</h6>
+                        </div>
+                        <div class="card-body">
+                            1
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="listaDadosGerais" class="table table-striped table-bordered <?php if($isMobile){ echo 'table-responsive';}?>" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="display:none;">ID</th>
+                                <th>Veículo</th>
+                                <th>Localidade</th>
+                                <th>Oficina</th>
+                                <th>Programada?</th>
+                                <th>KM ida / KM volta</th>
+                                <th>Data ida - Data Volta</th>
+                                <th>Status Manutenção</th>
+                                <th class="text-truncate">Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($manutencoes as $manutencao){
+                                    echo '<tr>';
+                                    echo '<td style="display:none;">'.$manutencao->id_manut.'</td>';
+                                    echo '<td>'.$manutencao->montadora.' '.$manutencao->modelo.' ('.$manutencao->alias.') </td>';
+                                    echo '<td>'.$manutencao->cidade.'/'.$manutencao->uf.'</td>';
+                                    echo '<td>'.$manutencao->local_manut.'</td>';
+                                    if($manutencao->tipo_manut){
+                                        echo '<td><p style="display:none">Programada</p><abbr title="Sim" class="initialism"><i class="fas fa-check-circle fa-2x" style="color: green"></i></abbr></td>';
+                                    } else{
+                                        echo '<td><p style="display:none">Nao Programada</p><abbr title="Não" class="initialism"><i class="fas fa-times-circle fa-2x" style="color: red"></i></abbr></td>';
+                                    }
+                                    if(!$manutencao->status_manut){
+                                        echo '<td>'.$manutencao->km_ida.' km / '.$manutencao->km_retorno.' km</td>';
+                                    } else{
+                                        echo '<td>'.$manutencao->km_ida.' km / --- </td>';
+                                    }
+                                    if(!$manutencao->status_manut){
+                                        echo '<td>'.date("d/m/Y H:i", strtotime($manutencao->data_manut)).' - '.date("d/m/Y H:i", strtotime($manutencao->data_retorno)).'</td>';
+                                    } else{
+                                        echo '<td>'.date("d/m/Y H:i", strtotime($manutencao->data_manut)).' / --- </td>';
+                                    }
+                                    if($manutencao->status_manut){
+                                        echo '<td><p style="display:none">Em manutenção</p><abbr title="Andamento" class="initialism"><i class="fas fa-tools fa-2x" style="color: red"></i></abbr></td>';
+                                    } else{
+                                        echo '<td><p style="display:none">Manutenção Finalizada</p><abbr title="Finalizada" class="initialism"><i class="fas fa-check-circle fa-2x" style="color: green"></i></abbr></td>';
+                                    }
+                                    echo '<td>'.$manutencao->descricao_manut.'</td>';
+                                    echo '</tr>';
                                 }
-                                if(!$manutencao->status_manut){
-                                    echo '<td>'.$manutencao->km_ida.' km / '.$manutencao->km_retorno.' km</td>';
-                                } else{
-                                    echo '<td>'.$manutencao->km_ida.' km / --- </td>';
-                                }
-                                if(!$manutencao->status_manut){
-                                    echo '<td>'.date("d/m/Y H:i", strtotime($manutencao->data_manut)).' - '.date("d/m/Y H:i", strtotime($manutencao->data_retorno)).'</td>';
-                                } else{
-                                    echo '<td>'.date("d/m/Y H:i", strtotime($manutencao->data_manut)).' / --- </td>';
-                                }
-                                if($manutencao->status_manut){
-                                    echo '<td><p style="display:none">Em manutenção</p><abbr title="Andamento" class="initialism"><i class="fas fa-tools fa-2x" style="color: red"></i></abbr></td>';
-                                } else{
-                                    echo '<td><p style="display:none">Manutenção Finalizada</p><abbr title="Finalizada" class="initialism"><i class="fas fa-check-circle fa-2x" style="color: green"></i></abbr></td>';
-                                }
-                                echo '<td>'.$manutencao->descricao_manut.'</td>';
-                                echo '</tr>';
-                            }
-                        ?>
-                    </tbody>
-                </table>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
     </div>
     <?php
         require_once('footer.php');

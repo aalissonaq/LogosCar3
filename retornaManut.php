@@ -9,12 +9,14 @@
         $km_retorno = $_POST['inputKMRetorno'];
         $data_retorno = str_replace("T"," ",$_POST['inputDataRetorno']);
         $descricao = $_POST['inputDescricao'];
+        $valor = $_POST['inputValorManut'];
 
-        $query = $bd->prepare('UPDATE tb_manutencao SET local_manut = :local_manut, status_manut = 0, km_retorno = :km_retorno, data_retorno = :data_retorno, descricao_manut = :descricao WHERE id_manut = :id_manut AND id_veiculo = :id_veiculo');
+        $query = $bd->prepare('UPDATE tb_manutencao SET local_manut = :local_manut, status_manut = 0, km_retorno = :km_retorno, data_retorno = :data_retorno, valor_manut = :valor_manut, descricao_manut = :descricao WHERE id_manut = :id_manut AND id_veiculo = :id_veiculo');
         $query->bindParam(':local_manut',$local_manut);
         $query->bindParam(':km_retorno',$km_retorno);
         $query->bindParam(':data_retorno',$data_retorno);
         $query->bindParam(':descricao',$descricao);
+        $query->bindParam(':valor_manut',$valor);
         $query->bindParam(':id_manut',$id_manut);
         $query->bindParam(':id_veiculo',$id_carro);
         $query->execute();

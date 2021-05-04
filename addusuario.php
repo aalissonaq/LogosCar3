@@ -6,7 +6,7 @@
     if(isset($_POST)){
         //RECEBENDO OS DADOS
         $nome = $_POST['inputNomeCompleto'];
-        $matricula = $_POST['inputMatrícula'];
+        $matricula = $_POST['inputMatricula'];
         echo '</br>logos@'.$matricula;
         echo '</br>'.$senha;
         $niveluser = $_POST['inputNivel'];

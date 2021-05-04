@@ -9,8 +9,6 @@
 
     if(isset($_GET)||($_GET!='')){
         $id=$_GET['aZhDelkuQw'];
-        //$level = 'ADM';
-        $id = 3;
         $query = $bd->prepare('SELECT * FROM tb_veiculo WHERE id_veiculo = :id');
         $query->bindParam(':id', $id);
         $query->execute();
@@ -70,15 +68,6 @@
         </div>
         <div class="modal-body">
             <label for="sobre"><h6>Dados do veiculo:</h6></label><hr/>
-            <?php
-                $localIP = strpos($_SERVER['REMOTE_ADDR'],"192.168.1");
-                echo $_SERVER['REMOTE_ADDR'];
-                if($localIP){
-                    echo 'sim';
-                } else{
-                    echo 'não';
-                }
-            ?>
             <h6><abbr title="A cidade-base onde o veículo estará lotado, passará maior parte do tempo." class="initialism">Localidade</abbr></h6>
             <div class="form-group justify-content-center text-center">
                 <select class="col-lg-5" name="inputUF" id="inputUF">
@@ -112,6 +101,7 @@
             </div>
         </div>
         <div class="modal-footer">
+            <button type="button" class="btn btn-warning" id="voltar">Voltar</a>
             <button type="reset" class="btn btn-secondary">Limpar</button>
             <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
@@ -264,6 +254,9 @@
             .fail(function(){
                 console.log("Ops! Algo de errado ocorreu na busca das informações...");
             });
+        });
+        $('#voltar').on('click', function(){
+            window.location.href = 'usuarios.php';
         });
         $('#inputUF').change(function(){
             $.getJSON("data/brasil.json", function(data){

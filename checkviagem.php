@@ -2,25 +2,20 @@
     require_once('isMobile.php');
     if($_POST['act']=='check'){
         try{
-            if($isMobile){
-                //recebe data cheia
-                $dataFull = str_replace("T"," ", $_POST['data']);
-                //separa data de horário
-                $separaDataEHora = explode(" ", $dataFull);
-                //captura em $horario somente o horario repassado
-                $horario = $separaDataEHora[1];
-                //divide o horário em hora, minuto e segundo (se existir segundo)
-                $dividoHorario = explode(":", $horario);
-                //se for menor que 3, indica que só tem hora e minuto no datetime repassado
-                if(count($dividoHorario)<3){
-                    //acrescenta-se os segundos
-                    $data = str_replace("T"," ",$_POST['data']).':00';
-                } else{
-                    //deixa como está
-                    $data = str_replace("T"," ",$_POST['data']);
-                }
+            //recebe data cheia
+            $dataFull = str_replace("T"," ", $_POST['data']);
+            //separa data de horário
+            $separaDataEHora = explode(" ", $dataFull);
+            //captura em $horario somente o horario repassado
+            $horario = $separaDataEHora[1];
+            //divide o horário em hora, minuto e segundo (se existir segundo)
+            $dividoHorario = explode(":", $horario);
+            //se for menor que 3, indica que só tem hora e minuto no datetime repassado
+            if(count($dividoHorario)<3){
+                //acrescenta-se os segundos
+                $data = str_replace("T"," ",$_POST['data']).':00';
             } else{
-                //quando não é mobile, por padrão vem os segundos zerados.
+                //deixa como está
                 $data = str_replace("T"," ",$_POST['data']);
             }
             $veiculo = $_POST['carro'];
