@@ -115,7 +115,7 @@
     <!-- END OF CODE -->
     <!-- MODAIS -->
     <div class="modal fade" id="modalAddMulta" tabindex="-1" role="dialog" aria-labelledby="modalAddMulta" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Nova Ocorrência: Multa </h5>
@@ -165,6 +165,21 @@
                             <label class="col-lg-5" for="inputIDViagem">ID da viagem:</label>
                             <input class="col-lg-5" type="text" name="inputIDViagem" id="inputIDViagem" readonly>
                         </div>
+                        <div class="control-form justify-content-center text-center">
+                            <label class="col-lg-5" for="inputUF inputCidade">Local da multa:</label>
+                            <select class="col-lg-2" name="inputUF" id="inputUF">
+                            <!-- Cidades -->
+                            </select>
+                            <select class="col-lg-3" name="inputCidade" id="inputCidade">
+                            <!-- Cidades -->
+                            </select>
+                        </div>
+                        <div class="control-form justify-content-center text-center">
+                            <label class="col-lg-5" for="inputUF inputTrecho">Trecho da Ocorrência:</label>
+                            <input class="col-lg-5" type="text" name="inputTrecho" id="inputTrecho">
+                            <label class="col-lg-5" for="inputUF inputTrecho">Valor (R$):</label>
+                            <input class="col-lg-5" type="text" name="inputValorMulta" id="inputValorMulta" onkeydown="fMasc(this,mCash)">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -190,7 +205,60 @@
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/all.min.js"></script>
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/fontawesome.min.js"></script>
     <script src="<?php echo BASE;?>/js/register.js"></script>
+    <script src="<?php echo BASE;?>/js/masks.js"></script>
     <script src="<?php echo BASE;?>/sw.js"></script>
     <script src="<?php echo BASE;?>/js/multas.js"></script>
     </body>
+    <script>
+        $(document).ready(function(){
+            var cidadeAtual = '<?php echo $mycidade;?>';
+            var estadoAtual = '<?php echo $myuf;?>';
+            $.getJSON("data/brasil.json", function(data){
+                var linha = '';
+                var coluna = '';
+                for(var i=0; i<data.estados.length; i++){
+                    if(estadoAtual == data.estados[i].sigla){
+                        linha += '<option value="' + data.estados[i].sigla + '" selected>' + data.estados[i].sigla + '</option>';
+                        cidadeId = i;
+                    } else{
+                        linha += '<option value="' + data.estados[i].sigla + '">' + data.estados[i].sigla + '</option>';
+                    }
+                }
+                for(var j=0; j<data.estados[cidadeId].cidades.length;j++){
+                    if(cidadeAtual == data.estados[cidadeId].cidades[j]){
+                        coluna += '<option value="'+ data.estados[cidadeId].cidades[j] +'" selected>' + data.estados[cidadeId].cidades[j] + '</option>';
+                    } else{
+                        coluna += '<option value="'+ data.estados[cidadeId].cidades[j] +'">' + data.estados[cidadeId].cidades[j] + '</option>';
+                    }
+                }
+                $('#inputUF').html(linha);
+                $('#inputCidade').html(coluna);
+                console.log('Está selecionada a cidade de '+ $('#inputCidade').val() +'/'+$('#inputUF').val());
+            })
+            .fail(function(){
+                console.log("Ops! Algo de errado ocorreu na busca das informações...");
+            });
+        });
+        $('#inputUF').change(function(){
+            $.getJSON("data/brasil.json", function(data){
+                var mont = $('#inputUF').val();
+                var a=0;
+                var linha = '';
+                while(mont!=data.estados[a].sigla){
+                    a++;
+                }
+                for(var i=0; i<data.estados[a].cidades.length; i++){
+                    linha += '<option value="' + data.estados[a].cidades[i] + '">' + data.estados[a].cidades[i] + '</option>';
+                }
+                $('#inputCidade').html(linha);
+                console.log('Você selecionou a cidade de ' +$('#inputCidade').val() +'/'+$('#inputUF').val());
+            })
+                .fail(function(){
+                    console.log("Ops! Algo de errado ocorreu na busca das informações de modelos da marca...");
+                });
+        });
+        $("#inputCidade").change(function(){
+            console.log('Você selecionou a cidade de ' +$('#inputCidade').val() +'/'+$('#inputUF').val());
+        });
+    </script>
 </html>

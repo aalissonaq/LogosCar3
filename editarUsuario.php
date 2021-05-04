@@ -204,8 +204,8 @@
                 ]
             } );
 
-            var cidadeAtual = '<?php if($user['cidade']!='') echo $user['cidade'];?>';
-            var estadoAtual = '<?php if($user['uf']!='') echo $user['uf'];?>';
+            var cidadeAtual = '<?php echo $user['cidade'];?>';
+            var estadoAtual = '<?php echo $user['uf'];?>';
             var cidadeId = 0;
             //  Carregando a lista de cidades de arquivo JSON
             $.getJSON("data/brasil.json", function(data){
