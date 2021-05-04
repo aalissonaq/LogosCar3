@@ -134,7 +134,7 @@
                     </div>
                     <div class="control-form justify-content-center text-center">
                         <label class="col-lg-5" for="inputHoraOcorrência">Qual a hora da multa?</label>
-                        <input class="col-lg-5" type="time" value="<?php echo date('H:i:s');?>" name="inputHoraOcorrencia" id="inputHoraOcorrencia" step="2">
+                        <input class="col-lg-5" type="time" value="<?php echo date('H:i:s');?>" name="inputHoraOcorrencia" id="inputHoraOcorrencia" step="1">
                     </div>
                     <div class="control-form justify-content-center text-center">
                         <label class="col-lg-5" for="inputVeiculo">Qual o veículo que recebeu a multa?</label>
