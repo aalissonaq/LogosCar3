@@ -123,49 +123,7 @@
                     <h4>Dados Gerais</h4>
                 </div>
                 <div class="card-body justify-content-center row">
-                    <div class="card" style="width: 12rem;">
-                        <div class="card-header">
-                            <h6>Rotas Efetuadas</h6>
-                        </div>
-                        <div class="card-body">
-                            <?php echo count($manutencoes);?>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 12rem;">
-                        <div class="card-header">
-                            <h6>Total KM Rodado</h6>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $manut_prog;?>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 12rem;">
-                        <div class="card-header">
-                            <h6>Média KM Rodado</h6>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $manut_nao_prog;?>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 12rem;">
-                        <div class="card-header">
-                            <h6>Média Tempo</h6>
-                        </div>
-                        <div class="card-body">
-                            <?php echo 'R$ '.$valor_total;?>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 12rem;">
-                        <div class="card-header">
-                            <h6>Custo/Manutenção</h6>
-                        </div>
-                        <div class="card-body">
-                            <?php
-                            $valor_medio = $valor_total / count($manutencoes);
-                            echo 'R$ '.number_format((float)$valor_medio,2,'.','');
-                            ?>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="card-body">
                     <table id="listaDadosGerais" class="table table-striped table-bordered <?php if($isMobile){ echo 'table-responsive';}?>" style="width:100%">
