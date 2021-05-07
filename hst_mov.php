@@ -72,8 +72,8 @@
                 $qr2 .= " AND v.placa = '".$veiculo."' ";
             }
             $qr2 .= "AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
-            echo 'de: '.$dataDe.'até: '.$dataAte;
-            echo '<br> query: '.$qr2;
+            //echo 'de: '.$dataDe.'até: '.$dataAte;
+            //echo '<br> query: '.$qr2;
         }
         //filtro da aba Motoristas - Geral
         if($_POST['id_search']=='driver'){
