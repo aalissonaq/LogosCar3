@@ -89,11 +89,11 @@
                 $dataAte = tratarData($_POST['dataAte']);
             }
             if($motorista!='0'){
-                $qr1 .= ' AND u.matr_user = '.$motorista.' ';
+                $qr3 .= ' AND u.matr_user = '.$motorista.' ';
             }
-            $qr1 .= "AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
+            $qr3 .= "AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
             /*echo 'de: '.$dataDe.'até: '.$dataAte;
-            echo '<br> query: '.$qr1;*/
+            */echo '<br> query: '.$qr3;
         }
     }
     try{
@@ -375,7 +375,11 @@
                                 echo '<td> '.$totalViagem.' viagens</td>';
                                 echo '<td> '.$totalKM.' KMs rodados</td>';
                                 $mediaViagemKM = $totalKM/$totalViagem;
-                                echo '<td> '.number_format((float)$mediaViagemKM,2,'.','').' KM/média</td>';
+                                $mediaViagemKM = number_format((float)$mediaViagemKM,2,'.','');
+                                if($mediaViagemKM>0)
+                                    echo '<td> '.$mediaViagemKM.' KM/média</td>';
+                                else
+                                echo '<td> 0 KM/média</td>';
                                 echo '<td> '.$distMaior.' KM ('.$dataRota['rota'].')</td>';
                                 echo '</tr>';
                             ?>
@@ -461,7 +465,11 @@
                                 echo '<td> '.$totalViagem.' viagens</td>';
                                 echo '<td> '.$totalKM.' KMs rodados</td>';
                                 $mediaViagemKM = $totalKM/$totalViagem;
-                                echo '<td> '.number_format((float)$mediaViagemKM,2,'.','').' KM/média</td>';
+                                $mediaViagemKM = number_format((float)$mediaViagemKM,2,'.','');
+                                if($mediaViagemKM>0)
+                                    echo '<td> '.$mediaViagemKM.' KM/média</td>';
+                                else
+                                    echo '<td> 0 KM/média</td>';
                                 echo '<td> '.$distMaior.' KM ('.$dataRota['rota'].')</td>';
                                 echo '</tr>';
                             ?>
