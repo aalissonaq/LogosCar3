@@ -24,6 +24,14 @@
     require_once('session.php');
     require_once('isMobile.php');
     require_once('header.php');
+    // listar todos os motoristas
+    $query = $bd->prepare(' SELECT nome_user, matr_user FROM tb_users WHERE motorista = true');
+    $query->execute();
+    $drivers  = $query->fetchAll(PDO::FETCH_OBJ);
+    // listar todos os veículos
+    $query = $bd->prepare(' SELECT alias, modelo, montadora, placa, id_uf, id_cidade FROM tb_veiculo');
+    $query->execute();
+    $cars  = $query->fetchAll(PDO::FETCH_OBJ);
     /*echo count($_POST);
     echo '&nbsp;';
     var_dump($_POST);*/
@@ -51,7 +59,7 @@
             if($veiculo!='0'){
                 $qr1 .= ' AND v.placa = '.$veiculo.' ';
             }
-            $qr1 .= "AND l.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
+            $qr1 .= " AND l.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
             //echo 'de: '.$dataDe.'até: '.$dataAte;
             //echo '<br> query: '.$qr1;
         }
@@ -71,7 +79,7 @@
             if($veiculo!='0'){
                 $qr2 .= " AND v.placa = '".$veiculo."' ";
             }
-            $qr2 .= "AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
+            $qr2 .= " AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
             //echo 'de: '.$dataDe.'até: '.$dataAte;
             //echo '<br> query: '.$qr2;
         }
@@ -91,9 +99,9 @@
             if($motorista!='0'){
                 $qr3 .= ' AND u.matr_user = '.$motorista.' ';
             }
-            $qr3 .= "AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
+            $qr3 .= " AND m.data_retorno BETWEEN '".$dataDe."' AND '".$dataAte."' ";
             /*echo 'de: '.$dataDe.'até: '.$dataAte;
-            */echo '<br> query: '.$qr3;
+            echo '<br> query: '.$qr3;*/
         }
     }
     try{
@@ -194,8 +202,8 @@
                                     <select name="selectMotorista" id="selectMotorista1">
                                         <option value="0">Selecione...</option>;
                                     <?php
-                                        foreach($rotasMotorista as $rm){
-                                            echo '<option value="'.$rm->matricula.'">'.$rm->motorista.'</option>';
+                                        foreach($drivers as $rm){
+                                            echo '<option value="'.$rm->matr_user.'">'.$rm->nome_user.'</option>';
                                         }
                                     ?>
                                     </select>
@@ -205,8 +213,8 @@
                                     <select name="selectVeiculo" id="selectVeiculo1">
                                         <option value="0">Selecione...</option>;
                                     <?php
-                                        foreach($rotasCarro as $rc){
-                                            echo '<option value="'.$rc->placa_carro.'">'.$rc->alias_carro.' ('.$rc->placa_carro.')</option>';
+                                        foreach($cars as $rc){
+                                            echo '<option value="'.$rc->placa.'">'.$rc->alias.' ('.$rc->placa.')</option>';
                                         }
                                     ?>
                                     </select>
@@ -317,8 +325,8 @@
                                     <select name="selectVeiculo" id="selectVeiculo2">
                                         <option value="0">Selecione...</option>;
                                     <?php
-                                        foreach($rotasCarro as $rc){
-                                            echo '<option value="'.$rc->placa_carro.'">'.$rc->alias_carro.' ('.$rc->placa_carro.')</option>';
+                                        foreach($cars as $rc){
+                                            echo '<option value="'.$rc->placa.'">'.$rc->alias.' ('.$rc->placa.')</option>';
                                         }
                                     ?>
                                     </select>
@@ -406,8 +414,8 @@
                                     <select name="selectMotorista" id="selectMotorista3">
                                         <option value="0">Selecione...</option>;
                                     <?php
-                                        foreach($rotasMotorista as $rm){
-                                            echo '<option value="'.$rm->matricula.'">'.$rm->motorista.'</option>';
+                                        foreach($drivers as $rm){
+                                            echo '<option value="'.$rm->matr_user.'">'.$rm->nome_user.'</option>';
                                         }
                                     ?>
                                     </select>
