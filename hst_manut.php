@@ -193,8 +193,8 @@
                                 </div>
                                 <div class="control-form card filtro-card">
                                     <label for="">Valor entre:</label>
-                                    <input type="text" name="inputValorDe" id="inputValorDe1" placeholder="Valor Minimo (R$)" title="Valor Minimo (R$)">
-                                    <input type="text" name="inputValorAte" id="inputValorAte1" placeholder="Valor Máximo (R$)" title="Valor Máximo (R$)">
+                                    <input type="text" name="inputValorDe" id="inputValorDe1" placeholder="Valor Minimo (R$)" onkeydown="fMasc(this,mCash)" title="Valor Minimo (R$)">
+                                    <input type="text" name="inputValorAte" id="inputValorAte1" placeholder="Valor Máximo (R$)" onkeydown="fMasc(this,mCash)" title="Valor Máximo (R$)">
                                 </div>
                             </div>
                             <div class="card-body justify-content-center row" id="but1">
@@ -362,6 +362,7 @@
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/all.min.js"></script>
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/fontawesome.min.js"></script>
     <script src="<?php echo BASE;?>/js/hst_mov.js"></script>
+    <script src="<?php echo BASE;?>/js/masks.js"></script>
     <script src="<?php echo BASE;?>/sw.js"></script>
 
     <!-- DataTables -->

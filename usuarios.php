@@ -152,82 +152,82 @@
     ?>
     <!-- Modal Add Veículo -->
     <div class="modal fade" id="modalAddUsuario" tabindex="-1" role="dialog" aria-labelledby="modalAddVeiculo" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Adicionar Usuário</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="formAddUsuario" action="addusuario.php" method="post">
-                <div class="form-group justify-content-center text-center">
-                    <label for="inputNomeCompleto inputMatricula">Colaborador:</label></br>
-                    <input class="col-lg-8" type="text" name="inputNomeCompleto" id="inputNomeCompleto" placeholder="Nome Completo" required>
-                    <input class="col-lg-3" type="text" name="inputMatricula" id="inputMatricula" placeholder="Matrícula" onkeydown="fMasc(this,mNum)" maxlength="5" required>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group justify-content-center text-center">
-                    <labelfor="inputNivel">Nível:</label></br>
-                    <select class="col-lg-11" name="inputNivel" id="inputNivel">
-                        <option value="OPR">Operação</option>
-                        <option value="ADM">Administrador</option>
-                    <?php if($level=='MTR'){ ?>
-                        <option value="MTR">Máster</option>
-                    <?php } ?>
-                    </select>
-                </div>
-                <div class="form-group justify-content-center text-center">
-                    <label for="inputUF inputCidade">Lotação:</label></br>
-                    <select class="col-lg-3" name="inputUF" id="inputUF">
-                    <!-- Cidades -->
-                    </select>
-                    <select class="col-lg-8" name="inputCidade" id="inputCidade">
-                    <!-- Cidades -->
-                    </select>
-                </div>
-                <div class="form-group justify-content-center text-center">
-                    <label class="col-lg-5" for="radioMotorista">Será motorista?</label>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radioMotorista" id="motoraSim" value="1">
-                        <label class="form-check-label" for="exampleRadios1">
-                            Sim
-                        </label>
+                <div class="modal-body">
+                    <form id="formAddUsuario" action="addusuario.php" method="post">
+                    <div class="form-group justify-content-center text-center">
+                        <label for="inputNomeCompleto inputMatricula">Colaborador:</label></br>
+                        <input class="col-lg-8" type="text" name="inputNomeCompleto" id="inputNomeCompleto" placeholder="Nome Completo" required>
+                        <input class="col-lg-3" type="text" name="inputMatricula" id="inputMatricula" placeholder="Matrícula" onkeydown="fMasc(this,mNum)" maxlength="5" required>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radioMotorista" id="motoraNao" value="0" checked>
-                        <label class="form-check-label" for="exampleRadios2">
-                            Não
-                        </label>
+                    <div class="form-group justify-content-center text-center">
+                        <labelfor="inputNivel">Nível:</label></br>
+                        <select class="col-lg-11" name="inputNivel" id="inputNivel">
+                            <option value="OPR">Operação</option>
+                            <option value="ADM">Administrador</option>
+                        <?php if($level=='MTR'){ ?>
+                            <option value="MTR">Máster</option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group justify-content-center text-center">
+                        <label for="inputUF inputCidade">Lotação:</label></br>
+                        <select class="col-lg-3" name="inputUF" id="inputUF">
+                        <!-- Cidades -->
+                        </select>
+                        <select class="col-lg-8" name="inputCidade" id="inputCidade">
+                        <!-- Cidades -->
+                        </select>
+                    </div>
+                    <div class="form-group justify-content-center text-center">
+                        <label class="col-lg-5" for="radioMotorista">Será motorista?</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="radioMotorista" id="motoraSim" value="1">
+                            <label class="form-check-label" for="exampleRadios1">
+                                Sim
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="radioMotorista" id="motoraNao" value="0" checked>
+                            <label class="form-check-label" for="exampleRadios2">
+                                Não
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group justify-content-center text-center" id="dadosMotorista">
+                        <hr/>
+                        <label class="col-lg-5" for="inputNumCNH">Nº da CNH:</label>
+                        <input class="col-lg-5" type="tel" name="inputNumCNH" id="inputNumCNH" onkeydown="fMasc(this,mNum)">
+                        <label class="col-lg-5" for="inputDataEmissao">Categoria:</label>
+                        <select class="col-lg-5" name="inputCategoria" id="inputCategoria">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="AB">AB</option>
+                            <option value="C">C</option>
+                            <option value="AC">AC</option>
+                            <option value="D">D</option>
+                            <option value="AD">AD</option>
+                        </select></br>
+                        <label class="col-lg-5" for="inputDataEmissao">Data de Emissão:</label>
+                        <input class="col-lg-5" type="date" name="inputDataEmissao" id="inputDataEmissao">
+                        <label class="col-lg-5" for="inputDataValidade">Data de Validade:</label>
+                        <input class="col-lg-5" type="date" name="inputDataValidade" id="inputDataValidade">
                     </div>
                 </div>
-                <div class="form-group justify-content-center text-center" id="dadosMotorista">
-                    <hr/>
-                    <label class="col-lg-5" for="inputNumCNH">Nº da CNH:</label>
-                    <input class="col-lg-5" type="tel" name="inputNumCNH" id="inputNumCNH" onkeydown="fMasc(this,mNum)">
-                    <label class="col-lg-5" for="inputDataEmissao">Categoria:</label>
-                    <select class="col-lg-5" name="inputCategoria" id="inputCategoria">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="AB">AB</option>
-                        <option value="C">C</option>
-                        <option value="AC">AC</option>
-                        <option value="D">D</option>
-                        <option value="AD">AD</option>
-                    </select></br>
-                    <label class="col-lg-5" for="inputDataEmissao">Data de Emissão:</label>
-                    <input class="col-lg-5" type="date" name="inputDataEmissao" id="inputDataEmissao">
-                    <label class="col-lg-5" for="inputDataValidade">Data de Validade:</label>
-                    <input class="col-lg-5" type="date" name="inputDataValidade" id="inputDataValidade">
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                    <button type="submit" id="salvarNovoColab" class="btn btn-primary">Salvar</button>
+                    </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary">Limpar</button>
-                <button type="submit" id="salvarNovoColab" class="btn btn-primary">Salvar</button>
-                </form>
             </div>
         </div>
-    </div>
     </div>
     
     <!-- END OF CODE -->

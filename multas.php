@@ -127,7 +127,7 @@
                     <div class="control-form justify-content-center text-center">
                         <h6>Identificar Motorista</h6><hr>
                     </div></hr>
-                    <form action="salvarmulta.php" method="post">
+                    <form id="formMulta" action="addmulta.php" method="post">
                     <div class="control-form justify-content-center text-center">
                         <label class="col-lg-5" for="inputDataOcorrência">Qual a data da multa?</label>
                         <input class="col-lg-5" type="date" name="inputDataOcorrencia" id="inputDataOcorrencia" value="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d');?>">
@@ -176,9 +176,9 @@
                         </div>
                         <div class="control-form justify-content-center text-center">
                             <label class="col-lg-5" for="inputUF inputTrecho">Trecho da Ocorrência:</label>
-                            <input class="col-lg-5" type="text" name="inputTrecho" id="inputTrecho">
+                            <input class="col-lg-5" type="text" name="inputTrecho" id="inputTrecho" required>
                             <label class="col-lg-5" for="inputUF inputTrecho">Valor (R$):</label>
-                            <input class="col-lg-5" type="text" name="inputValorMulta" id="inputValorMulta" onkeydown="fMasc(this,mCash)">
+                            <input class="col-lg-5" type="text" name="inputValorMulta" id="inputValorMulta" onkeydown="fMasc(this,mCash)" required>
                         </div>
                     </div>
                 </div>
