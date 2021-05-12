@@ -1,24 +1,10 @@
 <?php
-    var_dump($_POST); 
-    //id motorista      --
-    //id veiculo        --
-    //id_viagem         --
-    //data multa        --
-    //valor multa       
-    // status: pago?
-    // cidade da multa
-    // uf multa
-    // localidade multa
     require_once('config.php');
     require_once('session.php');
-
     if(isset($_POST)){
-        $dataMulta = $_POST['inputDataOcorrencia'].' '. = $_POST['inputHoraOcorrencia'];
-        $idVeiculo = $_POST['inputVeiculo'];
-        $nomeMotorista = $_POST['inputNomeCondutor'];
+        $dataMulta = $_POST['inputDataOcorrencia'].' '. $_POST['inputHoraOcorrencia'];
         $idMotorista = $_POST['inputIDCondutor'];
         $idVeiculo = $_POST['inputIDVeiculo'];
-        $rotaEfetuada = $_POST['inputRotaEfetuada'];
         $idViagem = $_POST['inputIDViagem'];
         $UF = $_POST['inputUF'];
         $cidade = $_POST['inputCidade'];
@@ -26,8 +12,15 @@
         $valorMulta = $_POST['inputValorMulta'];
         // PASSANDO OS PARÂMETROS PARA O PDO
         try{
-            $query = $bd->prepare('INSERT INTO tb_users () VALUES (:)');
-            $query->bindParam(':',$);
+            $query = $bd->prepare('INSERT INTO tb_multas (id_veiculo, id_motorista, id_viagem, data_multa, local_multa, uf_multa, cidade_multa, valor_multa) VALUES (:id_veiculo, :id_motorista, :id_viagem, :data_multa, :local_multa, :uf_multa, :cidade_multa, :valor_multa)');
+            $query->bindParam(':data_multa',$dataMulta);
+            $query->bindParam(':id_motorista',$idMotorista);
+            $query->bindParam(':id_veiculo',$idVeiculo);
+            $query->bindParam(':id_viagem',$idViagem);
+            $query->bindParam(':uf_multa',$UF);
+            $query->bindParam(':cidade_multa',$cidade);
+            $query->bindParam(':local_multa',$trechoMulta);
+            $query->bindParam(':valor_multa',$valorMulta);
             $query->execute();
         } catch(PDOException $e){
             echo $e->getMessage();
@@ -49,17 +42,17 @@
             $save->bindParam(':cidade',$mycidade);
             $save->bindParam(':dispositivo',$model);
             $save->bindParam(':ip',$meuip['ip']);
-            $acao = 'adicionou um novo usuário: nome '.$nome.', de matrícula '.$matricula.' com o nível '.$niveluser;
+            $acao = 'Add multa a ID '.$idMotorista.' no veículo ID '.$idVeiculo.', na viagem ID '.$idViagem;
             $save->bindParam(':acao',$acao);
             $save->execute();
         } catch(PDOException $e){
             echo $e->getMessage();
         }
 
-        header('Location: usuarios.php?add=1');
+        header('Location: multas.php?add=1');
 
     } else{
         echo 'Ocorreu um erro interno';
-        header('Location: usuarios.php?add=0');
+        header('Location: multas.php?add=0');
     }
 ?>

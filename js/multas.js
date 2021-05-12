@@ -1,7 +1,8 @@
 $(document).ready(function(){
+    $('dados-multa').hide();
     setTimeout(function() { 
         $('#avisoGet').hide();
-    }, 5000);
+    }, 7000);
     $('#listaMultas').DataTable( {
         order:[],
         dom: 'Bfrtip',
@@ -77,6 +78,7 @@ $(document).ready(function(){
     });
 });
 $('#dados-motorista').hide();
+$('#dados-multa').hide();
 $('#salvarNovoColab').hide();
 $('#pesquisaMotoristaMulta').on("click", function(){
     var dataOcorrencia = $('#inputDataOcorrencia').val();
@@ -118,4 +120,37 @@ $('#pesquisaMotoristaMulta').on("click", function(){
 function hideData(){
     $('#dados-motorista').fadeOut(250);
     $('#salvarNovoColab').fadeOut(250);
+}
+function editMulta(idM){
+    $('#modalEditaMulta').modal();
+    $.ajax({
+        method: "POST",
+        url: 'checkmulta.php',
+        data: {act: 'multa', idmulta: idM},
+        dataType: 'json',
+        success: function(resposta){
+            $('#dados-multa').fadeIn(250);
+            $('input[name="aceitaMulta"]').change(function () {
+                if ($('input[name="aceitaMulta"]:checked').val() === '1') {
+                    $('#dados-multa').fadeIn(260);
+                }
+                if ($('input[name="aceitaMulta"]:checked').val() === '0') {
+                    $('#dados-multa').fadeOut(250);
+                }
+            });
+            console.log(resposta.data);
+            var carro = resposta.data.montadora+' '+resposta.data.modelo+' ('+resposta.data.placa+')';
+            $('#labelInfrator').html('Ato de Infração: '+resposta.data.infrator);
+            document.getElementById('inputIDMulta').value = resposta.data.idmulta;
+            document.getElementById('inputEditInfrator').value = resposta.data.infrator;
+            document.getElementById('inputEditLocal').value = resposta.data.localMulta;
+            document.getElementById('inputEditVeiculo').value = carro;
+            document.getElementById('inputEditValor').value = resposta.data.valor;
+            
+        },
+        error: function(resposta){
+            alert(resposta.status);
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+        }
+    });
 }

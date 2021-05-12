@@ -35,6 +35,10 @@
         a#pesquisaMotoristaMulta:hover{
             color: white;
         }
+        .control-space{
+            margin-right: 7px;
+            margin-left: 7px;
+        }
     </style>
 </head>
 <body>
@@ -57,7 +61,7 @@
                 }
                 if(!@$_GET['edt']==''){
                     if($_GET['edt']==1){
-                        echo '<div id="avisoGet" class="alert alert-success" role="alert"> Multa editado com sucesso! </div>';
+                        echo '<div id="avisoGet" class="alert alert-success" role="alert"> Multa editada com sucesso! </div>';
                     } else{
                         echo '<div id="avisoGet" class="alert alert-danger" role="alert"> Ops! Não foi possível editar a multa... </div>';
                     }
@@ -92,14 +96,20 @@
                         <?php foreach($multas as $multa){?>
                             <tr>
                             <td> <?php echo $multa->id_multa; ?> </td>
-                            <td> <?php echo $multa->montadora.' '.$multa->modelo.'('.$multa->alias.')'; ?> </td>
+                            <td> <?php echo $multa->montadora.' '.$multa->modelo.' ('.$multa->alias.')'; ?> </td>
                             <td> <?php echo $multa->placa; ?> </td>
-                            <td> <?php echo $multa->data_multa; ?> </td>
+                            <td> <label style="display: none;"><?php echo $multa->data_multa; ?></label><?php echo date('d/m/Y', strtotime($multa->data_multa)); ?> </td>
                             <td> <?php echo $multa->cidade_multa.' / '.$multa->uf_multa; ?> </td>
                             <td> <?php echo $multa->local_multa; ?> </td>
                             <td> <?php echo $multa->valor_multa; ?> </td>
-                            <td> <?php echo $multa->pago; ?> </td>
-                            <td> Opções </td>
+                            <?php if($multa->pago==1){?>
+                            <td style="color: green"> <label style="display: none;">Pago</label><i class="fas fa-check-square fa-2x" title="Pago"></i> </td>
+                            <?php } else if($multa->pago==0){ ?>
+                            <td style="color: red"> <label style="display: none;">Não Pago</label><i class="fas fa-times-circle fa-2x" title="Não Pago"></i> </td>
+                            <?php } else if($multa->pago==2){ ?>
+                            <td style="color: yellow"> <label style="display: none;">Contestada</label><i class="fas fa-bullhorn fa-2x" title="Contestada"></i> </td>
+                            <?php }?>
+                            <td> <button class="btn btn-info" title="Alterar Status" onclick="editMulta(<?php echo $multa->id_multa;?>)"><i class="fas fa-file-invoice-dollar" ></i></button> </td>
                             </tr>
                         <?php }?>
                         </tbody>
@@ -184,12 +194,67 @@
                 </div>
                 <div class="modal-footer">
                     <button type="reset" onclick="hideData()" class="btn btn-secondary">Limpar</button>
-                    <button type="submit" id="salvarNovoColab" class="btn btn-primary">Salvar</button>
+                    <button type="submit" id="salvarNovoColab" class="btn btn-primary">Adicionar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- fim modal add multa -->
+    <!-- inicio modal editar multa -->
+    <div class="modal fade" id="modalEditaMulta" tabindex="-1" role="dialog" aria-labelledby="modalEditaMulta" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Editar Status: Multa </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="control-form justify-content-center text-center">
+                        <h6 id="labelInfrator"></h6><hr>
+                    </div></hr>
+                    <form id="formEditMulta" action="edtmulta.php" method="post">
+                    <input type="hidden" name="inputIDMulta">
+                    <div class="control-form text-center justify-content-center">
+                        <label for="radioAceite">O motorista aceitou a multa?</label>
+                    </div>
+                    <div class="control-form text-center justify-content-center">
+                        <input class="control-space" type="radio" name="aceitaMulta" id="aceitaSim" value="1" checked>
+                        <label class="control-space" for="aceitaSim">Sim, aceita a multa.</label>
+                        <input class="control-space" type="radio" name="aceitaMulta" id="aceitaNao" value="0">
+                        <label class="control-space" for="aceitaNao">Não, pretende contestar.</label>
+                    </div>
+                    <div id="dados-multa">
+                        <hr>
+                        <div class="control-form text-center justify-content-center">
+                            <label class="col-lg-5" for="inputEditInfrator">Nome do condutor:</label>
+                            <input class="col-lg-5" type="text" name="inputEditInfrator" id="inputEditInfrator" readonly>
+                        </div>
+                        <div class="control-form text-center justify-content-center">
+                            <label class="col-lg-5" for="inputEditLocal">Local da Multa:</label>
+                            <input class="col-lg-5" type="text" name="inputEditLocal" id="inputEditLocal" readonly>
+                        </div>
+                        <div class="control-form text-center justify-content-center">
+                            <label class="col-lg-5" for="inputEditVeiculo">Veículo:</label>
+                            <input class="col-lg-5" type="text" name="inputEditVeiculo" id="inputEditVeiculo" readonly>
+                        </div>
+                        <div class="control-form justify-content-center text-center">
+                            <label class="col-lg-5" for="inputEditValor">Valor a descontar (RS):</label>
+                            <input class="col-lg-5" type="text" name="inputEditValor" id="inputEditValor" onkeydown="fMasc(this,mCash)" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" onclick="hideData()" class="btn btn-secondary">Limpar</button>
+                    <button type="submit" id="saveEdtMulta" class="btn btn-primary">Adicionar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fim modal editar multa-->
     <?php
         require_once('modaisMenu.php');
     ?>
