@@ -40,4 +40,30 @@
             exit;
         }
     }
+    if($_POST['act']=='verDoc'){
+        try{
+            $idmulta = $_POST['idmulta'];
+            require_once('session.php');
+            $stmt = $bd->prepare('SELECT termo_assinado FROM tb_multas WHERE id_multa = :id_multa');
+            $stmt->bindParam(':id_multa',$idmulta);
+            $stmt->execute();
+            if( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ){
+                $retorno = array(
+                    "result"        =>          "ok",
+                    "idmulta"       =>          $idmulta,
+                    "valor"         =>          $row['termo_assinado']
+                );
+            } else{
+                $retorno = array(
+                    "result"          =>          null
+                );
+            }
+            echo json_encode(["status"=>true,"msg"=>"Json enviado com sucesso!","data"=>$retorno]);
+            exit;
+        } catch(PDOException $e){
+            $erro = $e->getMessage();
+            echo json_encode(["status"=>false,"msg"=>"Ops! Houve algum erro...","data"=>$erro]);
+            exit;
+        }
+    }
 ?>

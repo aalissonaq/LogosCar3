@@ -85,7 +85,6 @@ $('#pesquisaMotoristaMulta').on("click", function(){
     var horaOcorrencia = $('#inputHoraOcorrencia').val();
     var periodo =  dataOcorrencia+' '+horaOcorrencia;
     var veiculo = $('#inputVeiculo').val();
-    console.log('periodo: '+periodo);
     $.ajax({
         method: "POST",
         url: 'checkviagem.php',
@@ -93,7 +92,6 @@ $('#pesquisaMotoristaMulta').on("click", function(){
         dataType: 'json',
         success: function(resposta){
             if(resposta.data.result){
-                console.log(resposta.data);
                 $('#dados-motorista').fadeIn(250);
                 document.getElementById('inputNomeCondutor').value = resposta.data.nome;
                 document.getElementById('inputIDCondutor').value = resposta.data.user_id;
@@ -160,6 +158,21 @@ function editMulta(idM){
         }
     });
 }
+function verDocSigned(idM){
+    $('#modalVerDoc').modal();
+    $.ajax({
+        method: "POST",
+        url: 'checkmulta.php',
+        data: {act: 'verDoc', idmulta: idM},
+        dataType: 'json',
+        success: function(resposta){
+            $('#divDoc').html('<iframe width="100%" style="height: 65vh !important;" src="'+resposta.data.valor+'" frameborder="1" type="application/pdf"></iframe>')
+        },
+        error: function(resposta){
+            $('#divDoc').html('<p><center><h4>Não foi possível carregar o documento. Tente novamente ou contacte o NTI Logos.</h4></center></p>');
+        }
+    });
+}
 $('#inputFormaPgto').on("change", function(){
     if($(this).val()=='pc'){
         $('.pgtoParcelado').fadeIn(250);
@@ -175,3 +188,17 @@ $('input[name="aceitaMulta"]').on("change", function () {
         }, 250);
     }
 });
+function converteBase64() {
+    var filesSelected = document.getElementById("inputDocSign").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+            var newImage = document.getElementById("docSign");
+            newImage.value = srcData;
+            console.log(srcData);
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}

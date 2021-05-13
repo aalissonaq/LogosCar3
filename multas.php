@@ -109,7 +109,12 @@
                             <?php } else if($multa->pago==2){ ?>
                             <td style="color: yellow"><i class="fas fa-bullhorn fa-2x" title="Contestada"></i></td>
                             <?php }?>
-                            <td> <button class="btn btn-info" title="Alterar Status" onclick="editMulta(<?php echo $multa->id_multa;?>)"><i class="fas fa-file-invoice-dollar" ></i></button> </td>
+                            <td>
+                                <button class="btn btn-info btn-sm" title="Alterar Status" onclick="editMulta(<?php echo $multa->id_multa;?>)"><i class="fas fa-file-invoice-dollar"></i></button>
+                                <?php if($multa->termo_assinado!=NULL){?>
+                                <button class="btn btn-secondary btn-sm" title="Ver Doc Assinado" onclick="verDocSigned(<?php echo $multa->id_multa;?>)"><i class="far fa-eye"></i></button>
+                                <?php }?>
+                            </td>
                             </tr>
                         <?php }?>
                         </tbody>
@@ -258,6 +263,15 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="row justify-content-center text-center" style="margin-top: 14px;">
+                            <div class="col-lg-5 control-form justify-content-center text-center">
+                                <a class="btn btn-primary" href="data/doc.pdf"><i class="fas fa-file-invoice-dollar"></i> Imprimir Termo de Aceite</a>
+                            </div>
+                            <div class="col-lg-5 control-form justify-content-center text-center">
+                                <input type="file" name="inputDocSign" id="inputDocSign" accept="application/pdf" onchange="converteBase64();" required>
+                                <input type="hidden" name="docSign" id="docSign">
+                            </div>
+                        </div>
                         
                     </div>
                 </div>
@@ -270,6 +284,29 @@
         </div>
     </div>
     <!-- fim modal editar multa-->
+    <!-- inicio modal verDoc-->
+    <div class="modal fade" id="modalVerDoc" tabindex="-1" role="dialog" aria-labelledby="modalVerDoc" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-file-invoice-dollar" ></i> Documento Assinado: </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" height="180px">
+                    <div class="row justify-content-center text-center" id="divDoc">
+                            <!-- carregar documento -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-secondary">Fechar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fim modal verDoc-->
     <?php
         require_once('modaisMenu.php');
     ?>
