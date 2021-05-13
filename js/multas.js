@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('dados-multa').hide();
+    $('.pgtoParcelado').hide();
     setTimeout(function() { 
         $('#avisoGet').hide();
     }, 7000);
@@ -136,17 +136,23 @@ function editMulta(idM){
                 }
                 if ($('input[name="aceitaMulta"]:checked').val() === '0') {
                     $('#dados-multa').fadeOut(250);
+                    $('#inputFormaPgto').selectedIndex = 0;
+                    $('#inputParcelamento').selectedIndex = 0;
                 }
             });
-            console.log(resposta.data);
+            var linha = '';
+            var parc;
             var carro = resposta.data.montadora+' '+resposta.data.modelo+' ('+resposta.data.placa+')';
-            $('#labelInfrator').html('Ato de Infração: '+resposta.data.infrator);
             document.getElementById('inputIDMulta').value = resposta.data.idmulta;
             document.getElementById('inputEditInfrator').value = resposta.data.infrator;
             document.getElementById('inputEditLocal').value = resposta.data.localMulta;
             document.getElementById('inputEditVeiculo').value = carro;
             document.getElementById('inputEditValor').value = resposta.data.valor;
-            
+            for(parc=2;parc<=5;parc++){
+                var valor = resposta.data.valor/parc;
+                linha += '<option value="'+parc+'x R$'+valor.toFixed(2)+'">'+parc+'x de R$'+valor.toFixed(2)+'</option>';
+            }
+            $('#inputParcelamento').html(linha);
         },
         error: function(resposta){
             alert(resposta.status);
@@ -154,3 +160,18 @@ function editMulta(idM){
         }
     });
 }
+$('#inputFormaPgto').on("change", function(){
+    if($(this).val()=='pc'){
+        $('.pgtoParcelado').fadeIn(250);
+    } else{
+        $('.pgtoParcelado').fadeOut(250);
+    }
+});
+$('input[name="aceitaMulta"]').on("change", function () {
+    if ($('input[name="aceitaMulta"]:checked').val() === '0') {
+        setTimeout(function() { 
+            $('#inputFormaPgto').prop("selectedIndex", 0);
+            $('#inputParcelamento').prop("selectedIndex", 0);
+        }, 250);
+    }
+});

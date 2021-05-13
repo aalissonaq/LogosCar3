@@ -103,11 +103,11 @@
                             <td> <?php echo $multa->local_multa; ?> </td>
                             <td> <?php echo $multa->valor_multa; ?> </td>
                             <?php if($multa->pago==1){?>
-                            <td style="color: green"> <label style="display: none;">Pago</label><i class="fas fa-check-square fa-2x" title="Pago"></i> </td>
+                            <td style="color: green"><i class="fas fa-check-square fa-2x" title="Pago: <?php if($multa->condicao_pgto!=NULL) echo $multa->condicao_pgto; else echo 'À vista'; ?>"></i></td>
                             <?php } else if($multa->pago==0){ ?>
-                            <td style="color: red"> <label style="display: none;">Não Pago</label><i class="fas fa-times-circle fa-2x" title="Não Pago"></i> </td>
+                            <td style="color: red"><i class="fas fa-times-circle fa-2x" title="Não Pago"></i></td>
                             <?php } else if($multa->pago==2){ ?>
-                            <td style="color: yellow"> <label style="display: none;">Contestada</label><i class="fas fa-bullhorn fa-2x" title="Contestada"></i> </td>
+                            <td style="color: yellow"><i class="fas fa-bullhorn fa-2x" title="Contestada"></i></td>
                             <?php }?>
                             <td> <button class="btn btn-info" title="Alterar Status" onclick="editMulta(<?php echo $multa->id_multa;?>)"><i class="fas fa-file-invoice-dollar" ></i></button> </td>
                             </tr>
@@ -212,22 +212,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="control-form justify-content-center text-center">
-                        <h6 id="labelInfrator"></h6><hr>
-                    </div></hr>
-                    <form id="formEditMulta" action="edtmulta.php" method="post">
-                    <input type="hidden" name="inputIDMulta">
                     <div class="control-form text-center justify-content-center">
-                        <label for="radioAceite">O motorista aceitou a multa?</label>
-                    </div>
-                    <div class="control-form text-center justify-content-center">
-                        <input class="control-space" type="radio" name="aceitaMulta" id="aceitaSim" value="1" checked>
-                        <label class="control-space" for="aceitaSim">Sim, aceita a multa.</label>
-                        <input class="control-space" type="radio" name="aceitaMulta" id="aceitaNao" value="0">
-                        <label class="control-space" for="aceitaNao">Não, pretende contestar.</label>
-                    </div>
-                    <div id="dados-multa">
-                        <hr>
                         <div class="control-form text-center justify-content-center">
                             <label class="col-lg-5" for="inputEditInfrator">Nome do condutor:</label>
                             <input class="col-lg-5" type="text" name="inputEditInfrator" id="inputEditInfrator" readonly>
@@ -244,11 +229,41 @@
                             <label class="col-lg-5" for="inputEditValor">Valor a descontar (RS):</label>
                             <input class="col-lg-5" type="text" name="inputEditValor" id="inputEditValor" onkeydown="fMasc(this,mCash)" required>
                         </div>
+                    </div><hr>
+                    <form id="formEditMulta" action="edtmulta.php" method="post">
+                    <div class="control-form text-center justify-content-center">
+                        <label for="radioAceite">O motorista confirma a multa?</label>
+                    </div>
+                    <div class="control-form text-center justify-content-center">
+                        <input class="control-space" type="radio" name="aceitaMulta" id="aceitaSim" value="1" checked>
+                        <label class="control-space" for="aceitaSim">Sim, aceita a multa.</label>
+                        <input class="control-space" type="radio" name="aceitaMulta" id="aceitaNao" value="0">
+                        <label class="control-space" for="aceitaNao">Não, pretende contestar.</label>
+                    </div>
+                    <div id="dados-multa">
+                        <hr>
+                        <input type="hidden" name="inputIDMulta" id="inputIDMulta">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-5 control-form justify-content-center text-center">
+                                <label for="inputFormaPgto">Forma Pgto:</label>
+                                <select name="inputFormaPgto" id="inputFormaPgto" style="margin-left: 7px;">
+                                    <option value="av">À vista (1x)</option>
+                                    <option value="pc">Parcelado</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-5 control-form justify-content-center text-center">
+                                <label class="pgtoParcelado" for="inputParcelamento">Parcelas:</label>
+                                <select class="pgtoParcelado" name="inputParcelamento" id="inputParcelamento" style="margin-left: 7px;">
+                                    <!-- opções de parcelamento -->
+                                </select>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" onclick="hideData()" class="btn btn-secondary">Limpar</button>
-                    <button type="submit" id="saveEdtMulta" class="btn btn-primary">Adicionar</button>
+                    <button type="reset" class="btn btn-secondary">Limpar</button>
+                    <button type="submit" id="saveEdtMulta" class="btn btn-primary">Editar</button>
                     </form>
                 </div>
             </div>
