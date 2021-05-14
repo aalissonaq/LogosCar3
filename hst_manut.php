@@ -334,6 +334,7 @@
                                 echo '<td>'.$manut_prog.'</td>';
                                 echo '<td>'.$manut_nao_prog.'</td>';
                                 echo '<td>R$ '.$valor_total.'</td>';
+                                $valor_medio = $valor_total/count($manutencoes);
                                 echo '<td>R$ '.number_format((float)$valor_medio,2,'.','').'</td>';
                                 echo '</tr>';
                             ?>

@@ -87,12 +87,12 @@ $('div[id*=ctrl_filtros]').on('click',function(){
     }
 });
 $('form').on("submit", function(){
-    document.getElementById('btnLogin').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';
+    $('#submitAddAbast').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';
     $(this).submit();
 });
 // funções
 function editPassword(idUSer){
-    $('#modalPassword').modal();
+    $('#modalAddAbastecimento').modal();
     $.ajax({
         method: "POST",
         url: 'consultaMatr.php',
@@ -108,6 +108,61 @@ function editPassword(idUSer){
                 setTimeout(function(){
                     window.location.href='usuarios.php';
                 }, 5000);
+            }
+        },
+        error: function(resposta){
+            console.log(resposta.data);
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+        }
+    });
+}
+$('#formAddAbast').on("submit", function(){
+    document.getElementById('submitAddAbast').disabled = true;
+    document.getElementById('submitAddAbast').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';
+    $(this).submit();
+});
+$('#formEdtAbast').on("submit", function(){
+    document.getElementById('submitEditAbast').disabled = true;
+    document.getElementById('submitEditAbast').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';
+    $(this).submit();
+});
+function addDocBase64() {
+    var filesSelected = document.getElementById("inputAddDocComprovante").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+            var newImage = document.getElementById("inputAddComprovante");
+            newImage.value = srcData;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+function editDocBase64() {
+    var filesSelected = document.getElementById("inputEdtDocComprovante").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+            var newImage = document.getElementById("inputEdtComprovante");
+            newImage.value = srcData;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+function editAbast(idUSer){
+    $('#modalEditAbastecimento').modal();
+    $.ajax({
+        method: "POST",
+        url: 'checkabastecimento.php',
+        data: {act: "check", id: idUSer},
+        dataType: 'json',
+        success: function(resposta){
+            if(resposta.data.nome != null && resposta.data.matr !=null){
+                $('#modalPasswordLabel').html('<i class="fas fa-key"></i>&nbsp Alterar: '+resposta.data.nome+' (mat.: '+resposta.data.matr+')');
+                document.getElementById('inputID').value = idUSer;
             }
         },
         error: function(resposta){
