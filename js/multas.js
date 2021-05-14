@@ -76,6 +76,17 @@ $(document).ready(function(){
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
+    $('div[id*=show]').hide();
+    $('div[id*=but]').hide();
+});
+$('div[id*=ctrl_filtros]').on('click',function(){
+    if($('div[id*=show]').is(':visible')){
+        $('div[id*=show]').fadeOut(250);
+        $('div[id*=but]').fadeOut(250);
+    } else{
+        $('div[id*=show]').fadeIn(250);
+        $('div[id*=but]').fadeIn(250);
+    }
 });
 $('#dados-motorista').hide();
 $('#dados-multa').hide();

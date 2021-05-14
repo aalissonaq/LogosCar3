@@ -2,20 +2,45 @@
 <!DOCTYPE html>
 <html>
 <?php
+    function tratarData($sendData){
+        //recebe data cheia
+        $dataFull = str_replace("T"," ", $sendData);
+        //separa data de horário
+        $separaDataEHora = explode(" ", $dataFull);
+        //captura em $horario somente o horario repassado
+        $horario = $separaDataEHora[1];
+        //divide o horário em hora, minuto e segundo (se existir segundo)
+        $dividoHorario = explode(":", $horario);
+        //se for menor que 3, indica que só tem hora e minuto no datetime repassado
+        if(count($dividoHorario)<3){
+            //acrescenta-se os segundos
+            return $dataF = str_replace("T"," ",$sendData).':00';
+        } else{
+            //deixa como está
+            return $dataF = str_replace("T"," ",$sendData);
+        }
+    }
     require_once('config.php');
     require_once('session.php');
     require_once('isMobile.php');
     require_once('header.php');
-    if($level=='OPR')
-            header('Location: sys.php');
+    
+    $qr='';
+    // listar todos os motoristas
+    try{
         if($level=='MTR')
-            $query = $bd->prepare('SELECT u.nome_user, u.id_user, v.id_veiculo, v.montadora, v.modelo, v.placa, v.alias, v.renavam, m.* FROM tb_multas as m, tb_users as u, tb_veiculo as v WHERE m.id_motorista = u.id_user AND m.id_veiculo = v.id_veiculo');
+            $query = $bd->prepare(' SELECT nome_user, id_user FROM tb_users WHERE motorista = true');   
         if($level=='ADM'){
-            $query = $bd->prepare('SELECT u.nome_user, u.id_user, v.id_veiculo, v.montadora, v.modelo, v.placa, v.alias, v.renavam, m.* FROM tb_multas as m, tb_users as u, tb_veiculo as v WHERE m.id_motorista = u.id_user AND m.id_veiculo = v.id_veiculo AND m.uf_multa = :myuf');
+            $query = $bd->prepare(' SELECT nome_user, id_user FROM tb_users WHERE motorista = true AND id_uf = :myuf ORDER BY nome_user ASC');
             $query->bindParam(':myuf',$myuf);
         }
         $query->execute();
-        $multas = $query->fetchAll(PDO::FETCH_OBJ);
+        $motoristas  = $query->fetchAll(PDO::FETCH_OBJ);
+    } catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    // listar todos os veículos
+    try{
         if($level=='MTR')
             $query = $bd->prepare('SELECT * FROM tb_veiculo ORDER BY placa ASC');
         if($level=='ADM'){
@@ -24,6 +49,63 @@
         }
         $query->execute();
         $veiculos = $query->fetchAll(PDO::FETCH_OBJ);
+    } catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    if(count($_POST)>0){
+        var_dump($_POST);
+        //filtro de multas
+            $veiculo = $_POST['selectVeiculo'];
+            $motorista = $_POST['selectMotorista'];
+            if($_POST['selectTipoManut']!=''){
+                $tipoManutencao = $_POST['selectTipoManut'];
+                $qr .= ' AND m.tipo_manut = '.$tipoManutencao;
+            }
+            if($_POST['dataDe']==''){
+                $dataDe = date('Y-m-d 00:00:00', strtotime('-1 year'));
+            } else{
+                $dataDe = tratarData($_POST['dataDe']);
+            }
+            if($_POST['dataAte']==''){
+                $dataAte = date('Y-m-d H:i:s');
+            } else{
+                $dataAte = tratarData($_POST['dataAte']);
+            }
+            $qr .= " AND m.data_multa BETWEEN '".$dataDe."' AND '".$dataAte."' ";
+            if($veiculo!='0'){
+                $qr .= ' AND v.placa = '.$veiculo.' ';
+            }
+            if($motorista!='0'){
+                $qr .= ' AND m.id_motorista = '.$motorista.' ';
+            }
+            if($_POST['valorDe']!=''){
+                $valorDe = $_POST['inputValorDe'];
+            } else{
+                $valorDe = '0.00';
+            }
+            if($_POST['valorAte']!=''){
+                $valorAte = $_POST['inputValorAte'];
+            } else{
+                $valorAte = '999999.00';
+            }
+            $qr .= " AND m.valor_multa BETWEEN '".$valorDe."' AND '".$valorAte."' ";
+            //echo 'de: '.$dataDe.'até: '.$dataAte;
+            //echo '<br>id:'.$_POST['id_search'].' & query: '.$qr1;
+    }
+    try{
+        if($level=='OPR')
+            header('Location: sys.php');
+        if($level=='MTR')
+            $query = $bd->prepare('SELECT u.nome_user, u.id_user, v.id_veiculo, v.montadora, v.modelo, v.placa, v.alias, v.renavam, m.* FROM tb_multas as m, tb_users as u, tb_veiculo as v WHERE m.id_motorista = u.id_user AND m.id_veiculo = v.id_veiculo'.$qr);
+        if($level=='ADM'){
+            $query = $bd->prepare('SELECT u.nome_user, u.id_user, v.id_veiculo, v.montadora, v.modelo, v.placa, v.alias, v.renavam, m.* FROM tb_multas as m, tb_users as u, tb_veiculo as v WHERE m.id_motorista = u.id_user AND m.id_veiculo = v.id_veiculo AND m.uf_multa = :myuf'.$qr);
+            $query->bindParam(':myuf',$myuf);
+        }
+        $query->execute();
+        $multas = $query->fetchAll(PDO::FETCH_OBJ);
+    } catch(PDOException $e){
+        echo $e->getMessage();
+    }
 ?>
 <head>
     <link rel="stylesheet" href="<?php echo BASE;?>/css/configura.css">
@@ -39,6 +121,20 @@
             margin-right: 7px;
             margin-left: 7px;
         }
+        .filtro-card{
+            min-width: 30px;
+            align-items: center;
+            display: flex;
+            margin: 3px !important;
+        }
+        #ctrl_filtros1, #ctrl_filtros2, #ctrl_filtros3{
+            width: 75vw !important;
+        }
+        <?php if($isMobile){ ?>
+        #show1, #show2, #show3{
+            width: 75vw !important;
+        }
+        <?php } ?>
     </style>
 </head>
 <body>
@@ -72,6 +168,53 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Multas</h4>
+                </div>
+                <div class="card-body justify-content-center row">
+                    <div class="card">
+                        <div class="card-header btn" id="ctrl_filtros1">
+                            <h6>Filtros</h6>
+                        </div>
+                        <form action="multas.php" method="post">
+                            <input type="hidden" name="id_search" value="geral">
+                            <div class="card-body justify-content-center align-center row" id="show1">
+                                <div class="control-form card filtro-card">
+                                    <label for="selectMotorista">Motorista:</label>
+                                    <select name="selectMotorista" id="selectMotorista">
+                                        <option value="0">Selecione...</option>;
+                                    <?php
+                                        foreach($motoristas as $rm){
+                                            echo '<option value="'.$rm->id_user.'">'.$rm->nome_user.'</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
+                                <div class="control-form card filtro-card">
+                                    <label for="selectVeiculo">Veículo:</label>
+                                    <select name="selectVeiculo" id="selectVeiculo">
+                                        <option value="0">Selecione...</option>;
+                                    <?php
+                                        foreach($veiculos as $rc){
+                                            echo '<option value="'.$rc->id_veiculo.'">'.$rc->alias.' ('.$rc->placa.')</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
+                                <div class="control-form card filtro-card">
+                                    <label for="">Período entre:</label>
+                                    <input type="date" name="dataDe" id="dataDe">
+                                    <input type="date" name="dataAte" id="dataAte">
+                                </div>
+                                <div class="control-form card filtro-card">
+                                    <label for="">Valor(R$) entre:</label>
+                                    <input type="text" name="valorDe" id="valorDe" onkeydown="fMasc(this,mCash)">
+                                    <input type="text" name="valorAte" id="valorAte" onkeydown="fMasc(this,mCash)">
+                                </div><br>
+                            </div>
+                            <div class="card-body justify-content-center row" id="but1">
+                                <button type="submit" class="btn btn-outline-primary col-lg-6"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body badge-info">
                     <button class="btn btn-outline-light col-lg-5" id="btnAddMulta" data-toggle="modal" data-target="#modalAddMulta"><i class="fas fa-exclamation-triangle"></i> Adicionar Multa </button>
