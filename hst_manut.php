@@ -87,9 +87,6 @@
         }
     }
     try{
-        if($level=='OPR'){
-            header('Location: sys.php');
-        }
         if($level=='MTR'){
             $query = $bd->prepare('SELECT v.modelo,v.montadora,v.id_veiculo,v.alias,v.id_uf,m.* FROM `tb_veiculo` as v, `tb_manutencao` as m WHERE v.id_veiculo = m.id_veiculo '.$qr1);
         } else{
