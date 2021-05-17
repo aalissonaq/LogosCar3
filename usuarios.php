@@ -165,7 +165,7 @@
                     <div class="form-group justify-content-center text-center">
                         <label for="inputNomeCompleto inputMatricula">Colaborador:</label></br>
                         <input class="col-lg-8" type="text" name="inputNomeCompleto" id="inputNomeCompleto" placeholder="Nome Completo" required>
-                        <input class="col-lg-3" type="text" name="inputMatricula" id="inputMatricula" placeholder="Matrícula" onkeydown="fMasc(this,mNum)" maxlength="5" required>
+                        <input class="col-lg-3" type="text" name="inputMatricula" id="inputMatricula" placeholder="Matrícula" onkeydown="fMasc(this,mNum)" maxlength="6" required>
                     </div>
                     <div class="form-group justify-content-center text-center">
                         <labelfor="inputNivel">Nível:</label></br>
