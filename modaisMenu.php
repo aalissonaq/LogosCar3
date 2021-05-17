@@ -14,7 +14,7 @@
                     <a href="log.php" class="btn btn-dark btn-lg btn-block text-white"><i class="fas fa-eye"></i> Log</a>
                     <?php } if($level!='OPR'){?>
                     <a href="fuel.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-gas-pump"></i> Abastecimento</a>
-                    <a href="licenciamento.php" class="btn btn-primary btn-lg btn-block text-white"><i class="fas fa-file-invoice-dollar"></i> Licenciamento</a>
+                    <!--<a href="licenciamento.php" class="btn btn-primary btn-lg btn-block text-white"><i class="fas fa-file-invoice-dollar"></i> Licenciamento</a>-->
                     <a href="multas.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-exclamation-triangle"></i> Multas</a>
                     <a href="usuarios.php" class="btn btn-primary btn-lg btn-block text-white"><i class="fas fa-id-card"></i> Usuários</a>
                     <a href="veiculos.php" class="btn btn-info btn-lg btn-block text-white"><i class="fas fa-car-alt"></i> Veiculos</a>
