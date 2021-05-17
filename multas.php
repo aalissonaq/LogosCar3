@@ -56,10 +56,6 @@
         //filtro de multas
             $veiculo = $_POST['selectVeiculo'];
             $motorista = $_POST['selectMotorista'];
-            if($_POST['selectTipoManut']!=''){
-                $tipoManutencao = $_POST['selectTipoManut'];
-                $qr .= ' AND m.tipo_manut = '.$tipoManutencao;
-            }
             if($_POST['dataDe']==''){
                 $dataDe = date('Y-m-d 00:00:00', strtotime('-1 year'));
             } else{
@@ -72,7 +68,7 @@
             }
             $qr .= " AND m.data_multa BETWEEN '".$dataDe."' AND '".$dataAte."' ";
             if($veiculo!='0'){
-                $qr .= ' AND v.placa = '.$veiculo.' ';
+                $qr .= ' AND v.id_veiculo = '.$veiculo.' ';
             }
             if($motorista!='0'){
                 $qr .= ' AND m.id_motorista = '.$motorista.' ';
@@ -90,6 +86,9 @@
             $qr .= " AND m.valor_multa BETWEEN '".$valorDe."' AND '".$valorAte."' ";
             //echo 'de: '.$dataDe.'até: '.$dataAte;
             //echo '<br>id:'.$_POST['id_search'].' & query: '.$qr1;
+            var_dump($_POST);
+            echo '</br>';
+            echo $qr;
     }
     try{
         if($level=='OPR')

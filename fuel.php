@@ -34,14 +34,9 @@
     $cars  = $query->fetchAll(PDO::FETCH_OBJ);
     
     if(count($_POST)>0){
-        var_dump($_POST);
-        //filtro de multas
+        //filtro de abastecimento
             $veiculo = $_POST['selectVeiculo'];
             $motorista = $_POST['selectMotorista'];
-            if($_POST['selectTipoManut']!=''){
-                $tipoManutencao = $_POST['selectTipoManut'];
-                $qr .= ' AND m.tipo_manut = '.$tipoManutencao;
-            }
             if($_POST['dataDe']==''){
                 $dataDe = date('Y-m-d 00:00:00', strtotime('-1 year'));
             } else{
@@ -52,12 +47,12 @@
             } else{
                 $dataAte = tratarData($_POST['dataAte']);
             }
-            $qr .= " AND m.data_multa BETWEEN '".$dataDe."' AND '".$dataAte."' ";
+            $qr .= " AND a.data_abastecimento BETWEEN '".$dataDe."' AND '".$dataAte."' ";
             if($veiculo!='0'){
-                $qr .= ' AND v.placa = '.$veiculo.' ';
+                $qr .= ' AND v.id_veiculo = '.$veiculo.' ';
             }
             if($motorista!='0'){
-                $qr .= ' AND m.id_motorista = '.$motorista.' ';
+                $qr .= ' AND a.id_motorista = '.$motorista.' ';
             }
             if($_POST['valorDe']!=''){
                 $valorDe = $_POST['inputValorDe'];
@@ -69,7 +64,7 @@
             } else{
                 $valorAte = '999999.00';
             }
-            $qr .= " AND m.valor_multa BETWEEN '".$valorDe."' AND '".$valorAte."' ";
+            $qr .= ' AND a.valor_abastecimento BETWEEN "'.$valorDe.'" AND "'.$valorAte.'" ';
             //echo 'de: '.$dataDe.'até: '.$dataAte;
             //echo '<br>id:'.$_POST['id_search'].' & query: '.$qr1;
     }
@@ -146,7 +141,7 @@
                         <div class="card-header btn" id="ctrl_filtros1">
                             <h6>Filtros</h6>
                         </div>
-                        <form action="multas.php" method="post">
+                        <form action="fuel.php" method="post">
                             <input type="hidden" name="id_search" value="geral">
                             <div class="card-body justify-content-center align-center row" id="show1">
                                 <div class="control-form card filtro-card">
