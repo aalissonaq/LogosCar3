@@ -228,7 +228,7 @@
             </div>
             <div class="modal-footer">
                 <button type="reset" class="btn btn-secondary">Limpar</button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="submit" id="salvarNovoCarro" class="btn btn-primary">Salvar</button>
                 </form>
             </div>
         </div>

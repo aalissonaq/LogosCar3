@@ -261,3 +261,8 @@ $('#inputAlias').on('blur', function(){
         }
     });
 });
+$('#formAddVeiculo').on("submit", function(){
+    document.getElementById('salvarNovoCarro').disabled = true;
+    document.getElementById('salvarNovoCarro').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';
+    $(this).submit();
+});
