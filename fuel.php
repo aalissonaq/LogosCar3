@@ -316,7 +316,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="viewDoc">
-                    
+                    <!-- view of docs-->
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-secondary">Fechar</button>
