@@ -89,6 +89,26 @@
     }
 ?>
 <head>
+    <style>
+        .control-space{
+            margin-right: 7px;
+            margin-left: 7px;
+        }
+        .filtro-card{
+            min-width: 60px;
+            align-items: center;
+            display: flex;
+            margin: 3px !important;
+        }
+        #ctrl_filtros1, #ctrl_filtros2, #ctrl_filtros3{
+            width: 75vw !important;
+        }
+        <?php if($isMobile){ ?>
+        #show1, #show2, #show3{
+            width: 75vw !important;
+        }
+        <?php }?>
+    </style>
     <link rel="stylesheet" href="<?php echo BASE;?>/css/configura.css">
 </head>
 <body>
@@ -120,6 +140,53 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Abastecimento</h4>
+                </div>
+                <div class="card-body justify-content-center row">
+                    <div class="card">
+                        <div class="card-header btn" id="ctrl_filtros1">
+                            <h6>Filtros</h6>
+                        </div>
+                        <form action="multas.php" method="post">
+                            <input type="hidden" name="id_search" value="geral">
+                            <div class="card-body justify-content-center align-center row" id="show1">
+                                <div class="control-form card filtro-card">
+                                    <label for="selectMotorista">Motorista:</label>
+                                    <select name="selectMotorista" id="selectMotorista">
+                                        <option value="0">Selecione...</option>;
+                                    <?php
+                                        foreach($drivers as $rm){
+                                            echo '<option value="'.$rm->id_user.'">'.$rm->nome_user.'</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
+                                <div class="control-form card filtro-card">
+                                    <label for="selectVeiculo">Veículo:</label>
+                                    <select name="selectVeiculo" id="selectVeiculo">
+                                        <option value="0">Selecione...</option>;
+                                    <?php
+                                        foreach($cars as $rc){
+                                            echo '<option value="'.$rc->id_veiculo.'">'.$rc->alias.' ('.$rc->placa.')</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
+                                <div class="control-form card filtro-card">
+                                    <label for="">Período entre:</label>
+                                    <input type="date" name="dataDe" id="dataDe">
+                                    <input type="date" name="dataAte" id="dataAte">
+                                </div>
+                                <div class="control-form card filtro-card">
+                                    <label for="">Valor(R$) entre:</label>
+                                    <input type="text" name="valorDe" id="valorDe" onkeydown="fMasc(this,mCash)">
+                                    <input type="text" name="valorAte" id="valorAte" onkeydown="fMasc(this,mCash)">
+                                </div><br>
+                            </div>
+                            <div class="card-body justify-content-center row" id="but1">
+                                <button type="submit" class="btn btn-outline-primary col-lg-6"><i class="fas fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body badge-info">
                     <button class="btn btn-outline-light col-lg-5" id="btnAddAbastecimento" data-toggle="modal" data-target="#modalAddAbastecimento"><i class="fas fa-gas-pump"></i> Novo Abastecimento </button>
@@ -292,7 +359,7 @@
                 </div>
                 <div class="modal-body justify-content-center text-center row">
                     <div class="col-lg">
-                        <input type="file" name="inputEdtDocComprovante" id="inputEdtDocComprovante" onchange="edtDocBase64()">
+                        <input type="file" name="inputEdtDocComprovante" id="inputEdtDocComprovante" accept="application/pdf, image/*" onchange="edtDocBase64()">
                         <input type="hidden" name="inputEdtComprovante" id="inputEdtComprovante">
                     </div>
                 </div>

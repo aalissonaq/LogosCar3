@@ -189,10 +189,10 @@ function verDoc(UserID){
         dataType: 'json',
         success: function(resposta){
             $('#verDoc').modal();
-            $('#viewDoc').html('<iframe width="100%" style="height: 65vh !important;" src="'+resposta.data.comprovante+'" frameborder="1" type="application/pdf"></iframe>')
+            $('#viewDoc').html('<iframe width="100%" style="height: 65vh !important;" src="'+resposta.data.comprovante+'" frameborder="1" type="application/pdf, image/*"></iframe>')
         },
         error: function(resposta){           
-            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve. '+resposta.data);
         }
     });
 }

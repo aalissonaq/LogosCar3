@@ -1,1 +1,7 @@
 ErrorDocument 404 /logoscar3/erro404.php
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^/404/$
+RewriteRule ^(.*)$ /logoscar3/erro404.php [L]
