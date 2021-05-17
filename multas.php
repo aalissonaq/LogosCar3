@@ -53,7 +53,6 @@
         echo $e->getMessage();
     }
     if(count($_POST)>0){
-        var_dump($_POST);
         //filtro de multas
             $veiculo = $_POST['selectVeiculo'];
             $motorista = $_POST['selectMotorista'];
