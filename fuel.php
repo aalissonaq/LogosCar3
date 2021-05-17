@@ -150,7 +150,7 @@
                                 <td><?php echo $ab->valor_abastecimento?></td>
                                 <td><?php echo $ab->litros?></td>
                                 <td>
-                                <button class="btn btn-info btn-sm" title="Alterar Status" onclick="editAbast(<?php echo $multa->id_multa;?>)"><i class="fas fa-file-invoice-dollar"></i></button>
+                                <button class="btn btn-info btn-sm" title="Alterar Status" onclick="editAbast(<?php echo $ab->id_abastecimento;?>)"><i class="fas fa-file-invoice-dollar"></i></button>
                                 <?php if($ab->comprovante_abastecimento!=NULL){?>
                                 <button class="btn btn-secondary btn-sm" title="Ver Comprovante" onclick="verDoc(<?php echo $ab->id_abastecimento;?>)"><i class="far fa-eye"></i></button>
                                 <?php }?>
@@ -205,7 +205,7 @@
                     <h5>Detalhes:</h5>
                     <div class="control-form">
                         <label class="col-lg-4" for="inputAddLitros">Litragem (L):</label>
-                        <input class="col-lg-6" type="text" name="inputAddLitros" id="inputAddLitros">
+                        <input class="col-lg-6" type="text" name="inputAddLitros" id="inputAddLitros" onkeydown="fMasc(this,mCash)">
                     </div>
                     <div class="control-form">
                         <label class="col-lg-4" for="inputAddValorTotal">Valor Total (R$):</label>
@@ -239,16 +239,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="labelNovoAbast"></h6>
+                    <h6 class="modal-title" id="labelEdtAbast"></h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form id="formEdtAbast" action="edtabastecimento.php" method="post">
-                        <input type="hidden" name="inputID" id="inputID">
+                        <input type="hidden" name="inputEdtID" id="inputEdtID">
                         <div class="form-group justify-content-center text-center">
-                            <label class="col-lg-4" for="novaSenha">Motorista:</label>
+                            <label class="col-lg-4" for="inputEdtMotorista">Motorista:</label>
                             <select class="col-lg-6" name="inputEdtMotorista" id="inputEdtMotorista"> 
                                 <?php
                                     foreach($drivers as $d){
@@ -258,7 +258,7 @@
                             </select>
                         </div>
                         <div class="form-group justify-content-center text-center">
-                            <label class="col-lg-4" for="novaSenha">Veículo:</label>
+                            <label class="col-lg-4" for="inputEdtVeiculo">Veículo:</label>
                             <select class="col-lg-6" name="inputEdtVeiculo" id="inputEdtVeiculo"> 
                                 <?php
                                     foreach($cars as $c){
@@ -272,7 +272,7 @@
                     <h5>Detalhes:</h5>
                     <div class="control-form">
                         <label class="col-lg-4" for="inputEdtLitros">Litragem (L):</label>
-                        <input class="col-lg-6" type="text" name="inputEdtLitros" id="inputEdtLitros">
+                        <input class="col-lg-6" type="text" name="inputEdtLitros" id="inputEdtLitros" onkeydown="fMasc(this,mCash)">
                     </div>
                     <div class="control-form">
                         <label class="col-lg-4" for="inputEdtValorTotal">Valor Total (R$):</label>
@@ -280,17 +280,21 @@
                     </div>
                     <div class="control-form">
                         <label class="col-lg-4" for="inputEdtDataAbastecimento">Abasteceu em:</label>
-                        <input class="col-lg-6" type="datetime-local" name="inputEdtDataAbastecimento" id="inputEdtDataAbastecimento" required>
+                        <input class="col-lg-6" type="date" name="inputEdtDataAbastecimento" id="inputEdtDataAbastecimento" required>
                     </div>
                     <div class="control-form">
                         <label class="col-lg-4" for="inputEdtKM">KM (Odômetro):</label>
                         <input class="col-lg-6" type="text" name="inputEdtKM" id="inputEdtKM" required>
                     </div>
                 </div><hr>
-                <div class="modal-body justify-content-center text-center">
+                <div class="modal-body justify-content-center text-center row">
                     <label for="inputDocComprovante">Adicionar Comprovante Digitalizado:</label>
-                    <input type="file" name="inputEdtDocComprovante" id="inputEdtDocComprovante" onchange="edtDocBase64()">
-                    <input type="hidden" name="inputEdtComprovante" id="inputEdtComprovante">
+                </div>
+                <div class="modal-body justify-content-center text-center row">
+                    <div class="col-lg">
+                        <input type="file" name="inputEdtDocComprovante" id="inputEdtDocComprovante" onchange="edtDocBase64()">
+                        <input type="hidden" name="inputEdtComprovante" id="inputEdtComprovante">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary">Limpar</button>
@@ -301,6 +305,26 @@
         </div>
     </div>
     <!-- Fim Modal Editar Abastecimento -->
+    <!-- Modal  Ver Doc -->
+    <div class="modal fade" id="verDoc" tabindex="-1" role="dialog" aria-labelledby="verDoc" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="labelEdtAbast"></h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="viewDoc">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-secondary">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim Modal Ver Doc -->
     <?php
         require_once('modaisMenu.php');
     ?>

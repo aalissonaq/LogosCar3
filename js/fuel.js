@@ -139,7 +139,7 @@ function addDocBase64() {
         fileReader.readAsDataURL(fileToLoad);
     }
 }
-function editDocBase64() {
+function edtDocBase64() {
     var filesSelected = document.getElementById("inputEdtDocComprovante").files;
     if (filesSelected.length > 0) {
         var fileToLoad = filesSelected[0];
@@ -152,21 +152,46 @@ function editDocBase64() {
         fileReader.readAsDataURL(fileToLoad);
     }
 }
-function editAbast(idUSer){
-    $('#modalEditAbastecimento').modal();
+function editAbast(UserID){
     $.ajax({
         method: "POST",
         url: 'checkabastecimento.php',
-        data: {act: "check", id: idUSer},
+        data: {act: "check", id: UserID},
         dataType: 'json',
         success: function(resposta){
-            if(resposta.data.nome != null && resposta.data.matr !=null){
-                $('#modalPasswordLabel').html('<i class="fas fa-key"></i>&nbsp Alterar: '+resposta.data.nome+' (mat.: '+resposta.data.matr+')');
-                document.getElementById('inputID').value = idUSer;
+            $('#modalEditAbastecimento').modal();
+            $('#labelEdtAbast').html('<i class="fas fa-pen-square"></i>&nbsp; Editar Abastecimento ID: '+resposta.data.id_abast);
+            document.getElementById('inputEdtID').value = resposta.data.id_abast;
+            $('#inputEdtMotorista option[value='+resposta.data.idUser+']').attr('selected','selected');
+            $('#inputEdtVeiculo option[value='+resposta.data.idVeiculo+']').attr('selected','selected');
+            document.getElementById('inputEdtLitros').value = resposta.data.litros;
+            document.getElementById('inputEdtValorTotal').value = resposta.data.valor_abastecimento;
+            document.getElementById('inputEdtDataAbastecimento').value = resposta.data.dataAb;
+            document.getElementById('inputEdtKM').value = resposta.data.km_abastecimento;
+            document.getElementById('inputEdtComprovante').value = resposta.data.comprovante;
+            if(resposta.data.comprovante!=null){
+                $('#docAvaiable').html(' <a class="btn badge badge-info" href="viewDoc.php?doc='+resposta.data.comprovante+'" target="_blank">Ver Comprovante</a>');
+            } else{
+                $('#docAvaiable').html(' <a class="badge badge-info">Sem Doc Disponivel</a>');
             }
         },
         error: function(resposta){
-            console.log(resposta.data);
+            console.log(resposta);            
+            alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
+        }
+    });
+}
+function verDoc(UserID){
+    $.ajax({
+        method: "POST",
+        url: 'checkabastecimento.php',
+        data: {act: "view", id: UserID},
+        dataType: 'json',
+        success: function(resposta){
+            $('#verDoc').modal();
+            $('#viewDoc').html('<iframe width="100%" style="height: 65vh !important;" src="'+resposta.data.comprovante+'" frameborder="1" type="application/pdf"></iframe>')
+        },
+        error: function(resposta){           
             alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
         }
     });

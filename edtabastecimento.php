@@ -20,6 +20,7 @@
             //deixa como está
             $dataAbastecimento = str_replace("T"," ",$_POST['inputEdtDataAbastecimento']);
         }
+        $idAbast = $_POST['inputEdtID'];
         $idMotorista = $_POST['inputEdtMotorista'];
         $idVeiculo   = $_POST['inputEdtVeiculo'];  
         $litros = $_POST['inputEdtLitros'];
@@ -28,7 +29,8 @@
         $docDig = $_POST['inputEdtComprovante'];
         // PASSANDO OS PARÂMETROS PARA O PDO
         try{
-            $query = $bd->prepare('INSERT INTO tb_abastecimento (id_veiculo,id_motorista,valor_abastecimento,data_abastecimento,km_abastecimento,litros,comprovante_abastecimento) VALUES (:id_veiculo,:id_motorista,:valor_abastecimento,:data_abastecimento,:km_abastecimento,:litros,:comprovante_abastecimento)');
+            $query = $bd->prepare('UPDATE tb_abastecimento SET id_veiculo = :id_veiculo, id_motorista = :id_motorista, valor_abastecimento = :valor_abastecimento, data_abastecimento = :data_abastecimento, km_abastecimento = :km_abastecimento, litros = :litros, comprovante_abastecimento = :comprovante_abastecimento WHERE id_abastecimento = :id_abastecimento ');
+            $query->bindParam(':id_abastecimento',$idAbast);
             $query->bindParam(':id_veiculo',$idVeiculo);
             $query->bindParam(':id_motorista',$idMotorista);
             $query->bindParam(':valor_abastecimento',$valorTotal);
@@ -57,18 +59,18 @@
             $save->bindParam(':cidade',$mycidade);
             $save->bindParam(':dispositivo',$model);
             $save->bindParam(':ip',$meuip['ip']);
-            $acao = 'Edt abastecimento do motorista ID '.$idMotorista.' no veículo ID '.$idVeiculo;
+            $acao = 'Editou abastecimento do motorista ID '.$idMotorista.' no veículo ID '.$idVeiculo.'em '.date("d/m/Y H:i:s");
             $save->bindParam(':acao',$acao);
             $save->execute();
         } catch(PDOException $e){
             echo $e->getMessage();
         }
         echo 'ok';
-        //header('Location: fuel.php?edt=1');
+        header('Location: fuel.php?edt=1');
 
     } else{
         echo "ops!";
         echo 'Ocorreu um erro interno';
-        //header('Location: fuel.php?edt=0');
+        header('Location: fuel.php?edt=0');
     }
 ?>
