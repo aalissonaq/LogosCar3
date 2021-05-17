@@ -365,7 +365,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary">Limpar</button>
-                    <button type="submit" id="submitEditAbast" class="btn btn-primary">Adicionar</button>
+                    <button type="submit" id="submitEditAbast" class="btn btn-primary">Editar</button>
                     </form>
                 </div>
             </div>
