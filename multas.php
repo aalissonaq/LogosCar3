@@ -86,9 +86,6 @@
             $qr .= " AND m.valor_multa BETWEEN '".$valorDe."' AND '".$valorAte."' ";
             //echo 'de: '.$dataDe.'até: '.$dataAte;
             //echo '<br>id:'.$_POST['id_search'].' & query: '.$qr1;
-            var_dump($_POST);
-            echo '</br>';
-            echo $qr;
     }
     try{
         if($level=='OPR')
