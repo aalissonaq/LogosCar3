@@ -3,6 +3,22 @@
 <head>
     <?php
         require_once('config.php');
+        function isUrl($_sUrl){
+            $bRet = false;
+        
+            $cl = curl_init($_sUrl);
+            curl_setopt($cl,CURLOPT_VERBOSE, true);
+            curl_setopt($cl,CURLOPT_CONNECTTIMEOUT,1);
+            curl_setopt($cl,CURLOPT_HEADER,true);
+            curl_setopt($cl,CURLOPT_NOBODY,true);
+            curl_setopt($cl,CURLOPT_RETURNTRANSFER,true);
+            curl_setopt($cl,CURLOPT_SSL_VERIFYPEER, false);
+            $response = curl_exec($cl);
+            curl_close($cl);
+            if($response) $bRet = true;
+        
+            return $bRet;
+        }
     ?>
     <title> <?php echo NOMESYS;?> </title>
     <meta charset="utf-8" />
@@ -59,13 +75,20 @@
             $stmt = $bd->prepare('SELECT * FROM tb_users');
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-            //$statusInternet = exec("ping www.google.com.br",$output,$resultadoPing);
+            $meuip = 'https://api.ipify.org?format=json';
+            if(isUrl($meuip)){
+                $meuip = json_decode(file_get_contents('https://api.ipify.org?format=json'),true);
+            } else{
+                $meuip['ip'] = $_SERVER['REMOTE_ADDR'];
+            }
+            /* antigo metodo
             $localIP = strpos($_SERVER['REMOTE_ADDR'],"192.168.1");
             if($localIP){
                 $meuip['ip'] = $_SERVER['REMOTE_ADDR'];
             } else {
                 $meuip = json_decode(file_get_contents('https://api.ipify.org?format=json'),true);
             }
+            */
             foreach($result as $res){
                 if($user == $res->matr_user && $psw == $res->senha){
                     if($res->ativo == 1){
