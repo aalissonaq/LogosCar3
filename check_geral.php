@@ -42,4 +42,22 @@
     } else{
         echo '<script> console.log("Existem pendências com motoristas!");</script>';
     }
+    //checar se existe licenciamento dos veículos
+    $anoAtual = date('Y');
+    $query = $bd->prepare('SELECT * from tb_veiculo WHERE ativo = true');
+    $query->execute();
+    $carrosAtivos = $query->fetchAll(PDO::FETCH_OBJ);
+    foreach($carrosAtivos as $ca){
+        $query = $bd->prepare('SELECT * from tb_licenciamento WHERE id_veiculo = :id_veiculo AND ano_lic = :ano_lic');
+        $query->bindParam(':id_veiculo',$ca->id_veiculo);
+        $query->bindParam(':ano_lic',$anoAtual);
+        $query->execute();
+        if($query->rowCount() == 0){
+            $q = $bd->prepare('INSERT INTO tb_licenciamento (id_veiculo,ano_lic) VALUES (:id_veiculo,:ano_lic)');
+            $q->bindParam(':id_veiculo',$ca->id_veiculo);
+            $q->bindParam(':ano_lic',$anoAtual);
+            $q->execute();
+        }
+    }
+
 ?>
