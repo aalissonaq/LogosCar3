@@ -8,7 +8,7 @@
             $formaPgto = $_POST['inputFormaPgto'];
             $docSigned = $_POST['docSign'];
             if($formaPgto=='av'){
-                $condicaoPgto = NULL;
+                $condicaoPgto = 'À vista';
             } else{
                 $condicaoPgto = $_POST['inputParcelamento'];
             }

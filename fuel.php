@@ -407,3 +407,4 @@
     <script src="<?php echo BASE;?>/sw.js"></script>
     </body>
 </html>
+                }
