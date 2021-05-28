@@ -36,9 +36,8 @@
     <script src="<?php echo BASE;?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo BASE;?>/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Page level plugin JavaScript-->
-    <script src="<?php echo BASE;?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE;?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" src="vendor/datatables.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="<?php echo BASE;?>/vendor/font-awesome/js/all.min.js"></script>
