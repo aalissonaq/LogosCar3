@@ -1,9 +1,9 @@
 #ignorar SQL
-*.sql
+#*.sql
 #ignorar imagens
-img/
+#img/
 #ignorar arquivos zipados
-*.zip
-*.rar
+#*.zip
+#*.rar
 #ignorar o arquivo de conexão
-connect.php
+#connect.php
