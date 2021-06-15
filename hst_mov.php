@@ -249,7 +249,6 @@
                                 <th>KM fim</th>
                                 <th>KM rodado</th>
                                 <th>Status</th>
-                                <th>Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -286,7 +285,6 @@
                                         echo '<td> -- </td>';
                                         echo '<td><p style="display:none">Em Andamento</p><abbr title="Em andamento" class="initialism"><i class="fas fa-route fa-2x" style="color: blue"></i></abbr></td>';
                                     }
-                                    echo '<td> teste </td>';
                                     echo '</tr>';
                                     if($kmtotal > $dataRota["distancia"]){
                                         $dataRota["motorista"]  = $rota->nome_user;

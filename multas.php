@@ -239,13 +239,13 @@
                             <td> <label style="display: none;"><?php echo $multa->data_multa; ?></label><?php echo date('d/m/Y', strtotime($multa->data_multa)); ?> </td>
                             <td> <?php echo $multa->cidade_multa.' / '.$multa->uf_multa; ?> </td>
                             <td> <?php echo $multa->local_multa; ?> </td>
-                            <td> <?php echo $multa->valor_multa; ?> </td>
+                            <td> R$ <?php echo $multa->valor_multa; ?> </td>
                             <?php if($multa->pago==1){?>
                             <td style="color: green"><i class="fas fa-check-square fa-2x" title="Pago: <?php if($multa->condicao_pgto!=NULL) echo $multa->condicao_pgto; else echo 'À vista'; ?>"></i></td>
                             <?php } else if($multa->pago==0){ ?>
                             <td style="color: red"><i class="fas fa-times-circle fa-2x" title="Não Pago"></i></td>
                             <?php } else if($multa->pago==2){ ?>
-                            <td style="color: yellow"><i class="fas fa-bullhorn fa-2x" title="Contestada"></i></td>
+                            <td style="color: #dbd33b"><i class="fas fa-bullhorn fa-2x" title="Contestada"></i></td>
                             <?php }?>
                             <td>
                                 <button class="btn btn-info btn-sm" title="Alterar Status" onclick="editMulta(<?php echo $multa->id_multa;?>)"><i class="fas fa-file-invoice-dollar"></i></button>
@@ -403,7 +403,7 @@
                         </div>
                         <div class="row justify-content-center text-center" style="margin-top: 14px;">
                             <div class="col-lg-5 control-form justify-content-center text-center">
-                                <a class="btn btn-primary" href="data/doc.pdf"><i class="fas fa-file-invoice-dollar"></i> Imprimir Termo de Aceite</a>
+                                <a class="btn btn-primary" href="data/doc.pdf" target="_blank"><i class="fas fa-file-invoice-dollar"></i> Imprimir Termo de Aceite</a>
                             </div>
                             <div class="col-lg-5 control-form justify-content-center text-center">
                                 <input type="file" name="inputDocSign" id="inputDocSign" accept="application/pdf" onchange="converteBase64();" required>
@@ -509,11 +509,18 @@
                 console.log('Você selecionou a cidade de ' +$('#inputCidade').val() +'/'+$('#inputUF').val());
             })
                 .fail(function(){
-                    console.log("Ops! Algo de errado ocorreu na busca das informações de modelos da marca...");
+                    console.log("Ops! Não foi possível processar a requisição...");
                 });
         });
         $("#inputCidade").change(function(){
             console.log('Você selecionou a cidade de ' +$('#inputCidade').val() +'/'+$('#inputUF').val());
+        });
+        $('input[name=aceitaMulta]').on("change", function(){
+            if($(this).val()==0){
+                $('#inputDocSign').prop("required",false);
+            } else{
+                $('#inputDocSign').prop("required",true);
+            }
         });
     </script>
 </html>

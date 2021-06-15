@@ -8,6 +8,7 @@
         $kmatual = $_POST['inputKMatual'];
         $momentoSaida = str_replace("T"," ", $_POST['inputHoraSaida']);
         $motorista = $_POST['inputDriver'];
+        echo $motorista;'&nbsp;';
         $rota = $_POST['inputRota'];
         $carro = $_POST['inputIDCarro'];
 

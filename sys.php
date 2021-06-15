@@ -29,7 +29,6 @@
             <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="background-color: #8a8883; width: 0%; height: 5px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <?php
-        try{
             require_once('check_geral.php');
             if($level=='MTR'){
                 $query = $bd->prepare('SELECT * FROM tb_veiculo WHERE status = 1');
@@ -61,9 +60,6 @@
                 }
                 header("Refresh: 5;url=sys.php");
             }
-        } catch(PDOException $e){
-            echo $e->getMessage();
-        }
         ?>
         <div <?php if(!$isMobile) echo 'class="row"'; ?> id="mainview">
             <div class="card" id="cardCasa">

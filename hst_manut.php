@@ -320,7 +320,7 @@
                                     echo '<td>'.$man->total_manut.'</td>';
                                     echo '<td>'.$man->prog.'</td>';
                                     echo '<td>'.$man->nprog.'</td>';
-                                    echo '<td>'.$man->valor_gasto.'</td>';
+                                    echo '<td>R$ '.$man->valor_gasto.'</td>';
                                     $media = $man->valor_gasto / $man->total_manut;
                                     echo '<td>R$ '.number_format((float)$media,2,'.','').'</td>';
                                     echo '</tr>';

@@ -50,9 +50,9 @@
         } catch(PDOException $e){
             echo $e->getMessage();
         }
-        header('Location: multas.php?edt=1');
+        //header('Location: multas.php?edt=1');
     } else{
         echo "Ops! Erro não identificado";
-        header('Location: multas.php?edt=0');
+        //header('Location: multas.php?edt=0');
     }
 ?>

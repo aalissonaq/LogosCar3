@@ -60,8 +60,8 @@
                         <thead>
                             <tr>
                                 <th style="display:none;">ID</th>
-                                <th>Montadora</th>
-                                <th>Modelo</th>
+                                <th>Veículo</th>
+                                <th>Alias</th>
                                 <th>Placa</th>
                                 <th>Propriedade</th>
                                 <th>Local </th>
@@ -76,8 +76,8 @@
                                 foreach($veiculos as $veiculo){
                                     echo '<tr>';
                                     echo '<td style="display:none;">'.$veiculo->id_veiculo.'</td>'; 
-                                    echo '<td>'.$veiculo->montadora.'</td>';
-                                    echo '<td>'.$veiculo->modelo.'</td>'; 
+                                    echo '<td>'.$veiculo->montadora.' '.$veiculo->modelo.'</td>';
+                                    echo '<td>'.$veiculo->alias.'</td>'; 
                                     echo '<td>'.$veiculo->placa.'</td>';
                                     echo '<td>'.$veiculo->proprietario.'</td>';
                                     echo '<td>'.$veiculo->id_cidade.'/'.$veiculo->id_uf.'</td>';
