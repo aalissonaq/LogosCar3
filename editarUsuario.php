@@ -17,6 +17,7 @@
     } else{
         header('Location: usuarios.php?erro=1');
     }
+    
 ?>
 <head>
     <link rel="stylesheet" href="<?php echo BASE;?>/css/configura.css">
@@ -281,7 +282,9 @@
                 $('#motoraSim').focus();
             } else{
                 $.ajax({
-                    url: 'consultaMatr.php?act=cnh&num='+$("#inputNumCNH").val(),
+                    method: "POST",
+                    url: 'consultaMatr.php',
+                    data: {act: 'cnh', num: $("#inputNumCNH").val()},
                     dataType: 'json',
                     success: function(resposta){
                         if(resposta.data.cnh == $('#inputNumCNH').val()){
@@ -291,7 +294,7 @@
                         }
                     },
                     error: function(resposta){
-                        console.log(resposta.data);
+                        console.log(resposta.data.cnh);
                         alert('Nossa base de dados está indisponível. Favor atualizar a página e/ou tentar novamente em breve.');
                     }
                 });

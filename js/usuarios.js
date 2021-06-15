@@ -231,6 +231,16 @@ $('#novaSenha').on("keyup", function(){
         document.getElementById('rule4').style.color = '#d70d0d';
     }
 });
+$('#confirmaSenha').on("blur", function(){
+    var senha = $('#novaSenha').val();
+    var confsenha = $(this).val();
+    if(senha != confsenha){
+        alert('As senhas não conferem!');
+        $('#novaSenha').val('');
+        $('#confirmaSenha').val('');
+    }
+});
+
 $('#formAddUsuario').on("submit", function(){
     document.getElementById('salvarNovoColab').disabled = true;
     document.getElementById('salvarNovoColab').innerHTML = '<div class="spinner-border" role="status"><span class="sr-only">Carregando...</span></div>';

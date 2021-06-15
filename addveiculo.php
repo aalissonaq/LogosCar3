@@ -2,6 +2,8 @@
     require_once('config.php');
     require_once('session.php');
     var_dump($_POST);
+    echo '&nbsp;';
+    var_dump($_SESSION);
     if(isset($_POST)){
         //RECEBENDO OS DADOS
         $uf = $_POST['inputUF'];

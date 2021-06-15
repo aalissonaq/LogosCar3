@@ -256,7 +256,7 @@
             });
         });
         $('#voltar').on('click', function(){
-            window.location.href = 'usuarios.php';
+            window.location.href = 'veiculos.php';
         });
         $('#inputUF').change(function(){
             $.getJSON("data/brasil.json", function(data){

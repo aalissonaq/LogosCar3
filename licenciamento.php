@@ -295,7 +295,7 @@
                             </div>
                             <div class="control-form justify-content-center text-center col-lg-5">
                                 <div>
-                                <label class="col-lg-3" for="inputDocSign">Anexo:</label>
+                                <label class="col-lg-3" for="inputDocSign">Comprovante:</label>
                                 </div>
                                 <div>
                                 <input class="col-lg-7" type="file" name="inputDocSign" id="inputDocSign" accept="application/pdf" onchange="converteBase64();" required>
